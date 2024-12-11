@@ -10,6 +10,7 @@ export default {
     "./src/routes/signup.tsx",
     "./src/routes/signin.tsx",
     "./src/routes/resetpassword.tsx",
+    "./src/components/Notification.tsx"
   ],
   theme: {
     extend: {

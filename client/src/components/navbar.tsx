@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useState, useRef } from 'react';
 import useMediaQuery from '../hooks/useMediaQuery';
-import { FaBars } from "react-icons/fa";
+import { RiMenu4Fill } from "react-icons/ri";
 import { FaTimes } from "react-icons/fa";
 
 const Navbar: React.FC = () => {
@@ -12,7 +12,6 @@ const Navbar: React.FC = () => {
 
   const hadnleClick = () => {
     setNavModal(prev => !prev)
-    console.log(headerRef.current)
   }
   useEffect(() => {
     if(headerRef.current){
@@ -21,9 +20,9 @@ const Navbar: React.FC = () => {
   })
   const aboveMedia = useMediaQuery("(min-width: 1060px)")
   return (
-    <header ref={headerRef} className='bg-background-dark border border-gray-300 relative'>
+    <header ref={headerRef} className='bg-background-dark  shadow-xl shadow-gray-300 relative z-20'>
       <div className='flex w-11/12 md:w-4/5 justify-between items-center mx-auto py-4'>
-        <h1><span className='font-black text-secondary-light text-2xl'>ETH</span><span className='text-md italic text-accent-dark '>.dashboard</span></h1>
+        <h1  className='font-black text-accent-dark text-2xl'>ETH.DB</h1>
         {
           aboveMedia ? (
             <nav>
@@ -32,8 +31,8 @@ const Navbar: React.FC = () => {
             <Link to="/sign-in">Login</Link>
         </nav>
           ) : (
-            <button onClick={hadnleClick}>
-              {!navModal ? <FaBars className='text-2xl ' /> : <FaTimes className='text-2xl' />}
+            <button onClick={hadnleClick} className='font-black text-accent-dark text-2xl'>
+              {!navModal ? <RiMenu4Fill className='text-4xl font-black' /> : <FaTimes className='text-2xl' />}
             </button>
           )
         }

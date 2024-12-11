@@ -4,11 +4,15 @@ import Footer from "./footer";
 import { Outlet } from "react-router-dom";
 
 const Layout: React.FC = () => {
-    return (<>
-        <Navbar />
-        <main><Outlet /></main>
-        <Footer />
-  </>)
-}
+    return (
+        <div className="relative min-h-screen flex flex-col">
+            <Navbar />
+            <main className="flex-grow">
+                <Outlet />
+            </main>
+            <Footer />
+        </div>
+    );
+};
 
-export default Layout
+export default Layout;
