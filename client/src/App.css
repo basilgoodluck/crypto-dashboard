@@ -9,6 +9,50 @@ body{
   font-style: normal;
   position: relative;
 }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+#root {
+  animation: fadeIn 2s ease-in-out;
+}
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slide-left {
+  animation: slideIn 1s ease-in-out;
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(10%);
+    opacity: 0;
+  }
+}
+
+.slide-right {
+  animation: slideOut 1s ease-in-out;
+}
+
+
+
 .background-container {
      overflow-x: hidden; 
   }

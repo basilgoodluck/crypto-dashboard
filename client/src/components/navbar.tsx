@@ -39,7 +39,7 @@ const Navbar: React.FC = () => {
       </div>
       {
         navModal && (
-          <div className={`fixed top-[${headerHeight}] bg-accent-dark w-full h-[40vh]`}>
+          <div className={`${navModal ? "slide-left" : "slide-right"} fixed top-[${headerHeight}] bg-accent-dark w-full h-[40vh]`}>
             <ul className='text-white flex flex-col justify-center items-center h-full gap-4 text-2xl'>
               <li><Link to={"/"}>Home</Link></li>
               <li><Link to={"/dashboard"}>Dashboard</Link></li>

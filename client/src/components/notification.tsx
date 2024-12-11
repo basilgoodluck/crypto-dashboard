@@ -11,7 +11,7 @@ const Notification: React.FC = () => {
 
     return (
         <div
-            className={`z-50 fixed top-0 right-0 h-[80px] w-1/2 px-4 py-3 border-b-4 bg-text-dark shadow-sm shadow-gray-300 ${
+            className={`slide-left z-50 fixed top-0 right-0 h-[80px] w-1/2 px-4 py-3 border-b-4 bg-text-dark shadow-sm shadow-gray-300 ${
                 notification.type === "success" ? "border-b-primary" : "border-b-secondary"
             }`}
         >

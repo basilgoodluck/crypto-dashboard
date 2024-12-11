@@ -24,7 +24,6 @@ export const requestPasswordReset = async (req, res) => {
         return res.status(200).json({ message: `Verifcation code sent to ${email}, expires in 10 minutes`})
     }
     catch(error){
-        return res.status(500).json({ message: "Error occured"})
+        return res.status(500).json({ message: error.message })
     }
-
 }

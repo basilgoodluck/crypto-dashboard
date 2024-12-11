@@ -27,6 +27,7 @@ const Signup: React.FC = () => {
   const navigate = useNavigate();
   const [showPassword1, setShowPassword1] = useState<boolean>(false);
   const { setNotification } = useNotification();
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -35,11 +36,13 @@ const Signup: React.FC = () => {
       [name]: value
     }));
   }
+  const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     try {
+      await delay(4000)
       const response = await signIn(formData);
       if(response && response.status >= 200 && response.status < 300){
         setNotification({ message: "Login successful", type: "success"})

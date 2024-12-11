@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-    baseURL: "http://localhost:3333",
+    baseURL: "https://crypto-dashboard-pxrw.onrender.com",
 });
 interface FormData {
     name: string;
