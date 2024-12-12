@@ -15,7 +15,7 @@ interface FormData2 {
 
 
 export const signUp = (userData: FormData) => 
-    API.post("/auth/sign-up", userData);
+    API.post("/api/auth/sign-up", userData);
 
 export const signIn = (userData: FormData2) => 
-    API.post("/auth/sign-in", userData);
+    API.post("/api/auth/sign-in", userData);

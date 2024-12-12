@@ -16,9 +16,12 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
   const [IsAuthenticated, setIsAuthenticated] = useState<boolean>(!!localStorage.getItem("authToken"));
 
   const SignIn = (token: string) => {
-    setIsAuthenticated(true);
-    localStorage.setItem("authToken", token);
-  };
+    if(token){
+      setIsAuthenticated(true);
+      localStorage.setItem("authToken", token);
+      console.log(IsAuthenticated)
+    }
+  };  
 
   const SignOut = () => {
     setIsAuthenticated(false);

@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import process from "node:process"
 
 export const sendVerificationEmail = async (email, code) => {
     const transporter = nodemailer.createTransport({

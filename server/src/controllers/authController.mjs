@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import process from "node:process";
 import { connectDB } from "../config/mongodb.mjs";
 
 const JWT_ACCESS_TOKEN = process.env.JWT_ACCESS_TOKEN
@@ -51,7 +52,7 @@ export const signIn = async (req, res) => {
 
         await refreshTokens.insertOne({ token: refreshToken, userId: user._id })
         return res.status(201).json({
-            id: user._id,
+            userId: user._id,
             accessToken,
             refreshToken
         })

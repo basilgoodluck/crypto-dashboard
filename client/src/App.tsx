@@ -14,17 +14,10 @@ import { NotificationProvider } from './hooks/notificationContext.tsx';
 
 function App() {
   const { IsAuthenticated } = useAuth();
-  const [isAuthenticated, setIsAuthenticated] = React.useState(!!IsAuthenticated);
+  
 
   const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    return isAuthenticated ? <>{children}</> : <Navigate to="/sign-in" />;
-  };
-
-  const handleSignin = () => {
-    const token = localStorage.getItem("authToken");
-    if (token) {
-      setIsAuthenticated(true);
-    }
+    return IsAuthenticated ? <>{children}</> : <Navigate to="/sign-in" />;
   };
 
   return (
@@ -36,7 +29,7 @@ function App() {
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
               <Route path="/sign-up" element={<Signup />} />
-              <Route path="/sign-in" element={<Signin onSignin={handleSignin} />} />
+              <Route path="/sign-in" element={<Signin />} />
               <Route
                 path="/users/:userId/dashboard"
                 element={

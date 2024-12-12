@@ -9,9 +9,9 @@ const dashboardController = async (req, res) => {
     }
 
     if (req.user?.userId !== userId) {
+      console.log("Access denied")
       return res.status(403).json({ message: "Access denied" });
     }
-
     const db = await connectDB();
     const users = db.collection("users");
 

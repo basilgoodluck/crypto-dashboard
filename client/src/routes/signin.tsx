@@ -7,6 +7,8 @@ import { FaRegCheckCircle } from "react-icons/fa";<FaRegCheckCircle />
 import { BsEyeSlashFill } from "react-icons/bs";
 import { IoEyeSharp } from "react-icons/io5";
 import { useNotification } from '../hooks/notificationContext.js';
+import axios from 'axios';
+import { useAuth } from '../hooks/authProvider.js';
 
 interface FormData {
   name: string;
@@ -27,8 +29,9 @@ const Signup: React.FC = () => {
   const navigate = useNavigate();
   const [showPassword1, setShowPassword1] = useState<boolean>(false);
   const { setNotification } = useNotification();
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { SignIn } = useAuth()
+   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -39,22 +42,40 @@ const Signup: React.FC = () => {
   const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
   const handleSubmit = async (e: FormEvent) => {
+    setIsLoading(true)
     e.preventDefault();
-
     try {
+      const {email, password} = formData;
+      if(!email || !password){
+        setNotification({ 
+          message: "Empty required field, idiot!", 
+          type: "error" 
+        });
+        return 
+      }
       await delay(4000)
       const response = await signIn(formData);
       if(response && response.status >= 200 && response.status < 300){
+        SignIn(response.data.accessToken)
         setNotification({ message: "Login successful", type: "success"})
-      } else{
-        setNotification({ message: "Error occured while during sign in", type: "success" })
+        navigate(`/users/:${response.data.userId}`)
       }
-      navigate("/sign-in");
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.error(error.message);
-        setNotification({ message: "Something went wrong. Please try again.", type: "error" });
+    }  catch (error: unknown) {
+      if (axios.isAxiosError(error) && error.response) {
+          const errorMessage = error.response.data.message || "Error during sign in";
+          setNotification({ 
+              message: errorMessage, 
+              type: "error" 
+          });
+      } else {
+          setNotification({ 
+              message: "An unexpected error occurred", 
+              type: "error" 
+          });
       }
+    }
+    finally{
+      setIsLoading(false)
     }
     
   };
@@ -96,11 +117,11 @@ const Signup: React.FC = () => {
             </div>
           </div>
           <div className='flex justify-between items-center py-2'>
-            <button type="submit" className=' underline underline-offset-1 text-sm'>Forget password</button>
-            <button type="submit" className='bg-accent-dark text-white py-2 px-3 rounded-md text-sm'>Submit</button>
+          <p><Link className=' underline underline-offset-1 text-sm' to="/sign-up">Forget password</Link></p>
+            <button disabled={isLoading} type="submit" className={`${isLoading ? "bg-gray-300" : "bg-accent-dark"}  text-white py-2 px-3 rounded-md text-sm`}>Submit</button>
           </div>
         </form>
-        <p className='text-xs'>New user? <Link className='text-secondary' to="/sign-in">Sign in</Link></p>
+        <p className='text-xs'>New here? <Link className='text-secondary' to="/sign-up">Sign up</Link></p>
       </div>
       <div className='bg-accent-dark shadow-sm shadow-gray-300 w-11/12 md:w-4/5 mx-auto mt-12 p-6 rounded-sm text-text-dark flex items-center gap-4'>
         <div className='relative w-[120px] h-[120px] p-[10px] bg-white rounded-full'>
@@ -122,4 +143,4 @@ const Signup: React.FC = () => {
   );
 };
 
-export default Signup;
+export default Signup
