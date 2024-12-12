@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { signIn } from '../api/auth.js';
 import { useNavigate } from 'react-router-dom';
 import { FaCheckDouble } from 'react-icons/fa';
-import { FaRegCheckCircle } from "react-icons/fa";<FaRegCheckCircle /> 
 import { BsEyeSlashFill } from "react-icons/bs";
 import { IoEyeSharp } from "react-icons/io5";
 import { useNotification } from '../hooks/notificationContext.js';
@@ -58,8 +57,8 @@ const Signup: React.FC = () => {
       if(response && response.status >= 200 && response.status < 300){
         SignIn(response.data.accessToken)
         setNotification({ message: "Login successful", type: "success"})
-        navigate(`/users/:${response.data.userId}`)
       }
+      navigate(`/users/${response.data.userId}/dashboard`)
     }  catch (error: unknown) {
       if (axios.isAxiosError(error) && error.response) {
           const errorMessage = error.response.data.message || "Error during sign in";

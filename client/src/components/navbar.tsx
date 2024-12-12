@@ -10,7 +10,7 @@ const Navbar: React.FC = () => {
   const [headerHeight, setHeaderHeight] = useState(0)
   const headerRef = useRef<HTMLDivElement>(null)
 
-  const hadnleClick = () => {
+  const handleClick = () => {
     setNavModal(prev => !prev)
   }
   useEffect(() => {
@@ -27,11 +27,12 @@ const Navbar: React.FC = () => {
           aboveMedia ? (
             <nav>
             <Link to="/">Home</Link>
-            <Link to="/dashboard">Admin</Link>
+            <Link to="/users/:userId/dashboard">Admin</Link>
+            <Link to="/sign-up">Get a free account</Link>
             <Link to="/sign-in">Login</Link>
         </nav>
           ) : (
-            <button onClick={hadnleClick} className='font-black text-accent-dark text-2xl'>
+            <button onClick={handleClick} className='font-black text-accent-dark text-2xl'>
               {!navModal ? <RiMenu4Fill className='text-4xl font-black' /> : <FaTimes className='text-2xl' />}
             </button>
           )
@@ -42,8 +43,8 @@ const Navbar: React.FC = () => {
           <div className={`${navModal ? "slide-left" : "slide-right"} fixed top-[${headerHeight}] bg-accent-dark w-full h-[40vh]`}>
             <ul className='text-white flex flex-col justify-center items-center h-full gap-4 text-2xl'>
               <li><Link to={"/"}>Home</Link></li>
-              <li><Link to={"/dashboard"}>Dashboard</Link></li>
-              <li><Link to={"/sign-up"}>Sign up</Link></li>
+              <li><Link to={"/users/:userId/dashboard"}>Admin</Link></li>
+              <li><Link to={"/sign-up"}>Get a free account</Link></li>
               <li><Link to={"/sign-in"}>Sign in</Link></li>
             </ul>
           </div>
