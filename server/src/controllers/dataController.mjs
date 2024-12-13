@@ -1,9 +1,9 @@
 import path from "node:path";
 import fs from "node:fs";
-import { fileURLToPath } from "node:url";
+import { URL } from "node:url";
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.resolve(__filename)
+const fileUrl = new URL(import.meta.url)
+const __dirname = path.dirname(fileUrl.pathname)
 const cachedDataFolder = path.resolve(__dirname, "../data")
 
 export const getPriceTrends = async (req, res) => {
