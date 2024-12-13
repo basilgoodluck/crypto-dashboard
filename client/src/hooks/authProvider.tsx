@@ -2,22 +2,26 @@ import { useContext, createContext, useState } from "react";
 
 interface AuthContextType {
   IsAuthenticated: boolean;
-  SignIn: (token: string) => void;
+  username: string
+  SignIn: (token: string, username: string) => void;
   SignOut: () => void;
 }
 
 export const AuthContext = createContext<AuthContextType>({
   IsAuthenticated: false,
+  username: '',
   SignIn: () => {},
   SignOut: () => {},
 });
 
 export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [IsAuthenticated, setIsAuthenticated] = useState<boolean>(!!localStorage.getItem("authToken"));
+  const [username, setUsername] = useState<string>("")
 
-  const SignIn = (token: string) => {
+  const SignIn = (token: string, username: string) => {
     if(token){
       setIsAuthenticated(true);
+      setUsername(username)
       localStorage.setItem("authToken", token);
       console.log(IsAuthenticated)
     }
@@ -29,7 +33,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
   };
 
   return (
-    <AuthContext.Provider value={{ IsAuthenticated, SignIn, SignOut }}>
+    <AuthContext.Provider value={{ IsAuthenticated, username, SignIn, SignOut }}>
       {children}
     </AuthContext.Provider>
   );

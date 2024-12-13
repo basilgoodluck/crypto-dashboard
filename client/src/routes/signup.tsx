@@ -7,6 +7,7 @@ import { FaRegCheckCircle } from "react-icons/fa";
 import { BsEyeSlashFill } from "react-icons/bs";
 import { IoEyeSharp } from "react-icons/io5";
 import { useNotification } from '../hooks/notificationContext.js';
+import FAQs from '../components/faq.js';
 
 interface FormData {
   name: string;
@@ -262,7 +263,7 @@ const Signup: React.FC = () => {
         </form>
         <p className='text-xs'>Have an account? <Link className='text-secondary' to="/sign-in">Sign in</Link></p>
       </div>
-      <div className='bg-accent-dark shadow-sm shadow-gray-300 w-11/12 md:w-4/5 mx-auto mt-12 p-6 rounded-sm text-text-dark flex items-center gap-4'>
+      {/* <div className='bg-accent-dark shadow-sm shadow-gray-300 w-11/12 md:w-4/5 mx-auto mt-12 p-6 rounded-sm text-text-dark flex items-center gap-4'>
         <div className='relative w-[120px] h-[120px] p-[10px] bg-white rounded-full'>
           <div className='bg-accent-dark w-full relative h-full border-white rounded-full flex justify-center items-center font-bold '>
             100%
@@ -277,7 +278,8 @@ const Signup: React.FC = () => {
             <li><FaCheckDouble className='inline text-secondary-dark' /> Reliable customer support</li>
           </ul>
         </div>
-      </div>
+      </div> */}
+      <FAQs />
     </section>
   );
 };

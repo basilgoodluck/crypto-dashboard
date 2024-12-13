@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
-import heroImage from "../assets/hero.png";
+import playstoreLogo from "../assets/playstoreLogo.png";
+import appstoreLogo from "../assets/appstore.png"
+import mobileImage from "../assets/ETH.DB.png"
 import { useState, useEffect } from 'react';
 import { useSpring, animated } from '@react-spring/web';
 import AnimatedButton from '../components/animatedButton';
-import { FaCheckDouble } from "react-icons/fa";
 import FAQs from '../components/faq';
 
 function Home() {
@@ -43,9 +44,9 @@ function Home() {
   const pauseBetweenHeadlines = 2000;
 
   const typingAnimation = useSpring({
-    opacity: 1,
-    from: { opacity: 0 },
-    config: { duration: 300 },
+    width: `${displayedText.length}ch`,
+    from: { width: "0ch" },
+    config: { duration: typingSpeed * displayedText.length },
   });
 
   useEffect(() => {
@@ -80,35 +81,36 @@ function Home() {
   }, [currentIndex]);
   return (
     <div className='background-container overflow-x-hidden' id='background-container'>
-      <div className=' bg-background-dark flex justify-start items-center gap-12 pt-12 flex-col md:flex-row w-11/12 md:w-4/5 mx-auto'>
+      <div className=' bg-background-dark flex justify-start items-center gap-12 mt-12 pt-12 flex-col lg:flex-row w-11/12 md:w-4/5 mx-auto'>
         <div className=' text-text-dark pt-12 flex flex-col gap-y-4 '>
-          <animated.h1
-            style={typingAnimation}
-            className="text-xl md:text-2xl font-semibold text-text-semiLight"
-          >
-            {displayedText}
-          </animated.h1>
-          <p className='text-sm text-text-semiLight'>Track and manage your Ethereum assets seamlessly. Monitor tokens, coins, and NFTs in real-time, all from a single intuitive dashboard...</p>
+          <div className="typing-container">
+            <animated.h1
+              style={typingAnimation}
+              className="text-[16px] lg:text-[18px] font-semibold text-text-semiLight typing-animation"
+            >
+              {displayedText}
+            </animated.h1>
+          </div>
+          <h1 className='text-3xl md:text-4xl font-semibold underline underline-offset-8 text-accent' style={{lineHeight:"3.5rem"}}>Secure Your Portfolio with Confidence</h1>
+          <p className='text-sm text-text-semiLight'>Track and manage your Ethereum assets seamlessly. Monitor tokens, coins, and NFTs in real-time, all from a single intuitive dashboard</p>
           <Link className='' to="/dashboard" ><AnimatedButton e={"Get started"} /></Link>
         </div>
-        <div className=' shadow-md shadow-text-semiLight bg-accent-dark p-2 rounded-md' >
-          <img src={heroImage} alt='hero image'/>
-        </div>
-      </div>
-      <div className='bg-secondary-light shadow-sm shadow-gray-300 w-11/12 md:w-4/5 mx-auto mt-12 p-6 rounded-sm text-text-dark flex items-center gap-4'>
-        <div className='relative w-[120px] h-[120px] p-[10px] bg-white rounded-full'>
-          <div className='bg-secondary-light w-full relative h-full border-white rounded-full flex justify-center items-center font-bold '>
-            100%
+        <div className='' >
+          <div className='w-11/12 md:w-4/5 mx-auto flex flex-col justify-between items-center py-4'>
+            <div className='w-full'>
+              <img src={mobileImage} alt='mobile image' className='shadow-md shadow-gray-100 w-full rounded-t-[30px]' />
+            </div>
+            <div className="text-text-dark w-full flex justify-center gap-5 items-center mt-4">
+              <Link to="https://play.google.com/store" target="_blank" className="flex items-center bg-secondary rounded-2xl text-sm p-3 h-14 gap-2">
+                <img src={playstoreLogo} alt="Download on Google Play" className="w-10" />
+                Google Play
+              </Link>
+              <Link to="https://www.apple.com/app-store/" target="_blank" className="bg-secondary rounded-2xl text-sm p-3 flex items-center h-14 gap-2">
+                <img src={appstoreLogo} alt="Download on the App Store" className="w-10" />
+                App Store
+              </Link>
+            </div>
           </div>
-          <div className='spinElement absolute w-[20px] h-[20px] g-secondary-dark rounded-full'></div>
-        </div>
-        <div>
-          <ul className='text-sm'>
-            <li><FaCheckDouble className='inline text-secondary-dark' /> Fast and secure dashboard</li>
-            <li><FaCheckDouble className='inline text-secondary-dark' /> Seamless user experience</li>
-            <li><FaCheckDouble className='inline text-secondary-dark' /> Customizable features</li>
-            <li><FaCheckDouble className='inline text-secondary-dark' /> Reliable customer support</li>
-          </ul>
         </div>
       </div>
       <div>

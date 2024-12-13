@@ -1,13 +1,13 @@
 import React, { FormEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { signIn } from '../api/auth.js';
-import { useNavigate } from 'react-router-dom';
-import { FaCheckDouble } from 'react-icons/fa';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { BsEyeSlashFill } from "react-icons/bs";
 import { IoEyeSharp } from "react-icons/io5";
 import { useNotification } from '../hooks/notificationContext.js';
 import axios from 'axios';
 import { useAuth } from '../hooks/authProvider.js';
+import FAQs from '../components/faq.js';
 
 interface FormData {
   name: string;
@@ -29,7 +29,8 @@ const Signup: React.FC = () => {
   const [showPassword1, setShowPassword1] = useState<boolean>(false);
   const { setNotification } = useNotification();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { SignIn } = useAuth()
+  const { SignIn } = useAuth();
+  const location = useLocation();
    
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -55,10 +56,11 @@ const Signup: React.FC = () => {
       await delay(4000)
       const response = await signIn(formData);
       if(response && response.status >= 200 && response.status < 300){
-        SignIn(response.data.accessToken)
+        SignIn(response.data.accessToken, response.data.username)
         setNotification({ message: "Login successful", type: "success"})
       }
-      navigate(`/users/${response.data.userId}/dashboard`)
+      const from = location.state?.from?.pathname || `/users/${response.data.userId}/dashboard`;
+      navigate(from, { replace: true });
     }  catch (error: unknown) {
       if (axios.isAxiosError(error) && error.response) {
           const errorMessage = error.response.data.message || "Error during sign in";
@@ -81,7 +83,7 @@ const Signup: React.FC = () => {
 
   return (
     <section className=''>
-      <div className='w-11/12 md:w-4/5 mx-auto mt-12'>
+      <div className='w-11/12 md:w-4/5 mx-auto mt-12 pt-12'>
         <form onSubmit={handleSubmit} method="POST" className='flex flex-col gap-4'>
           <div className='flex flex-col gap-2'>
             <p className='text-sm'>email <span className='text-secondary'>*</span></p>
@@ -122,22 +124,7 @@ const Signup: React.FC = () => {
         </form>
         <p className='text-xs'>New here? <Link className='text-secondary' to="/sign-up">Sign up</Link></p>
       </div>
-      <div className='bg-accent-dark shadow-sm shadow-gray-300 w-11/12 md:w-4/5 mx-auto mt-12 p-6 rounded-sm text-text-dark flex items-center gap-4'>
-        <div className='relative w-[120px] h-[120px] p-[10px] bg-white rounded-full'>
-          <div className='bg-accent-dark w-full relative h-full border-white rounded-full flex justify-center items-center font-bold '>
-            100%
-          </div>
-          <div className='spinElement absolute w-[20px] h-[20px] g-secondary-dark rounded-full'></div>
-        </div>
-        <div>
-          <ul className='text-sm'>
-            <li><FaCheckDouble className='inline text-secondary-dark' /> Fast and secure dashboard</li>
-            <li><FaCheckDouble className='inline text-secondary-dark' /> Seamless user experience</li>
-            <li><FaCheckDouble className='inline text-secondary-dark' /> Customizable features</li>
-            <li><FaCheckDouble className='inline text-secondary-dark' /> Reliable customer support</li>
-          </ul>
-        </div>
-      </div>
+      <FAQs />
     </section>
   );
 };

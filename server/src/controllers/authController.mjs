@@ -52,6 +52,7 @@ export const signIn = async (req, res) => {
 
         await refreshTokens.insertOne({ token: refreshToken, userId: user._id })
         return res.status(201).json({
+            username: user.name,
             userId: user._id,
             accessToken,
             refreshToken

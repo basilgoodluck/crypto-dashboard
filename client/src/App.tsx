@@ -4,7 +4,7 @@ import './App.css';
 import Home from './routes/home.tsx';
 import Signup from './routes/signup';
 import Signin from './routes/signin';
-import Dashboard from "./routes/dashboard.tsx";
+import { Dashboard } from "./routes/dashboard.tsx";
 import { useAuth } from './hooks/authProvider';
 import { AuthContextProvider } from './hooks/authProvider';
 import Notification from './components/notification';
@@ -16,14 +16,13 @@ function App() {
 
   const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const { IsAuthenticated } = useAuth();
-  
     if (!IsAuthenticated) {
-      return <Navigate to="/sign-in" />;
+      return <Navigate to="/sign-in" replace />;
     }
     return <>{children}</>;
   };
   
-
+  
   return (
     <NotificationProvider>
       <AuthContextProvider>
