@@ -39,7 +39,6 @@ const Signup: React.FC = () => {
       [name]: value
     }));
   }
-  const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
   const handleSubmit = async (e: FormEvent) => {
     setIsLoading(true)
@@ -53,7 +52,6 @@ const Signup: React.FC = () => {
         });
         return 
       }
-      await delay(4000)
       const response = await signIn(formData);
       if(response && response.status >= 200 && response.status < 300){
         SignIn(response.data.accessToken, response.data.username)
