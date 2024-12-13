@@ -50,3 +50,5 @@ export const getTotalVolumes = async (req, res) => {
 
     }
 }
+
+ENOENT: no such file or directory, open '/opt/render/project/src/server/src/data/ethDailyPriceTrends.json'
