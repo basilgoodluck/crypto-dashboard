@@ -1,9 +1,8 @@
 import express from "express";
 import cors from "cors";
-import process from "node:process";
+import process from "process";
 import cron from "node-cron"
 import { configDotenv } from "dotenv";
-import { connectDB } from "./config/mongodb.mjs";
 import authRoute from "./routes/authRoute.mjs";
 import dataRoute from "./routes/dataRoute.mjs";
 import dashboardRoute from "./routes/dashboardRoute.mjs";
@@ -12,10 +11,26 @@ import { writeToFile } from "./utils/writeToFile.mjs";
 import { generateRandomCode } from "./utils/generateRandomCode.mjs";
 
 configDotenv()
+const allowedOrigins = [
+    'https://your-frontend-domain.com',
+    'http://localhost:3000'
+  ];
+  
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+        } else {
+        callback(new Error('Not allowed by CORS'));
+        }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true, 
+};
+
 const PORT = process.env.PORT || 3333
-connectDB()
 const app = express()
-app.use(cors())
+app.use(cors(corsOptions));
 app.use(express.json())
 
 console.log(generateRandomCode())
