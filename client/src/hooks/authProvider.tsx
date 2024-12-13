@@ -20,17 +20,15 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
   const [IsAuthenticated, setIsAuthenticated] = useState<boolean>(!!localStorage.getItem("authToken"));
   const [username, setUsername] = useState<string>(localStorage.getItem("username") || "");
 
-  // Utility to validate and decode JWT
   const validateToken = (token: string): boolean => {
     try {
       const decoded = jwtDecode<{ exp: number }>(token);
-      return decoded.exp * 1000 > Date.now(); // Check if token is still valid
+      return decoded.exp * 1000 > Date.now();
     } catch {
       return false;
     }
   };
 
-  // Refresh the auth token
   const refreshAuthToken = async () => {
     try {
       const refreshToken = localStorage.getItem("refreshToken");
@@ -43,7 +41,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
       setIsAuthenticated(true);
     } catch (error) {
       console.error("Failed to refresh auth token:", error);
-      SignOut(); // Log the user out if refresh fails
+      SignOut(); 
     }
   };
 
@@ -55,12 +53,10 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
       setIsAuthenticated(true);
       setUsername(storedUsername || "");
     } else if (storedToken) {
-      // Token expired; try refreshing
       refreshAuthToken();
     }
   }, []);
 
-  // Periodically refresh the token if authenticated
   useEffect(() => {
     if (IsAuthenticated) {
       const interval = setInterval(() => {
@@ -68,8 +64,8 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
         if (token && !validateToken(token)) {
           refreshAuthToken();
         }
-      }, 5 * 60 * 1000); // Refresh every 5 minutes
-      return () => clearInterval(interval); // Cleanup interval on unmount
+      }, 5 * 60 * 1000);
+      return () => clearInterval(interval);
     }
   }, [IsAuthenticated]);
 

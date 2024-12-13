@@ -12,8 +12,8 @@ import { generateRandomCode } from "./utils/generateRandomCode.mjs";
 
 configDotenv()
 const allowedOrigins = [
-    'https://your-frontend-domain.com',
-    'http://localhost:3000'
+    'https://crypto-dashboard-brown.vercel.app/',
+    'http://localhost:5173'
   ];
   
 const corsOptions = {
