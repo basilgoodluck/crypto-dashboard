@@ -47,8 +47,8 @@ export const signIn = async (req, res) => {
         if(!passwordMatch){
             return res.status(401).json({ message: "Email or password is invalid"})
         }
-        const accessToken = jwt.sign({ userId: user._id }, JWT_ACCESS_TOKEN, { subject: "Access API", expiresIn: "10m"} )
-        const refreshToken = jwt.sign({ userId: user.id }, JWT_REFRESH_TOKEN, { subject: "Refresh token", expiresIn: "1w"})
+        const accessToken = jwt.sign({ userId: user._id }, JWT_ACCESS_TOKEN, { subject: "Access API", expiresIn: "2m"} )
+        const refreshToken = jwt.sign({ userId: user.id }, JWT_REFRESH_TOKEN, { subject: "Refresh token", expiresIn: "1d"})
 
         await refreshTokens.insertOne({ token: refreshToken, userId: user._id })
         return res.status(201).json({

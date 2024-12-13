@@ -9,8 +9,10 @@ import { useAuth } from './hooks/authProvider';
 import { AuthContextProvider } from './hooks/authProvider';
 import Notification from './components/notification';
 import Layout from "./components/layout.tsx";
+import ProtectedLayout from "./components/protectedLayout.tsx";
 import "./App.css";
 import { NotificationProvider } from './hooks/notificationContext.tsx';
+import Account from "./routes/account.tsx";
 
 function App() {
 
@@ -33,11 +35,21 @@ function App() {
               <Route index element={<Home />} />
               <Route path="/sign-up" element={<Signup />} />
               <Route path="/sign-in" element={<Signin />} />
+            </Route>
+            <Route path="/" element={<ProtectedLayout />}>
               <Route
                 path="/users/:userId/dashboard"
                 element={
                   <ProtectedRoute>
                     <Dashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/users/:userId"
+                element={
+                  <ProtectedRoute>
+                    <Account />
                   </ProtectedRoute>
                 }
               />

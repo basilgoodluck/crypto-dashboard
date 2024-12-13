@@ -3,8 +3,8 @@ import { getMarketCaps, getPriceTrends, getTotalVolumes } from "../controllers/d
 
 const router = Router()
 
-router.get("/eth-market-cap", getMarketCaps)
+router.get("/eth-market-caps", getMarketCaps)
 router.get("/eth-price-trends", getPriceTrends)
-router.get("/eth-total-volume", getTotalVolumes)
+router.get("/eth-total-volumes", getTotalVolumes)
 
 export default router

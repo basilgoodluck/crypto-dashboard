@@ -5,6 +5,7 @@ export default {
     "./src/components/navbar.tsx",
     "./src/components/footer.tsx",
     "./src/components/faq.tsx",
+    "./src/components/protectedNavbar.tsx",
     "./src/App.tsx",
     "./src/routes/home.tsx",
     "./src/routes/dashboard.tsx",
