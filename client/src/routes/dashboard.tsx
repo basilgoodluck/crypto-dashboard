@@ -20,6 +20,8 @@ export const Dashboard: React.FC = () => {
   const { IsAuthenticated } = useAuth(); 
   const { setNotification } = useNotification();
 
+  console.log(IsAuthenticated)
+
   useEffect(() => {
     const fetchData = async () => {
         setLoading(true);
