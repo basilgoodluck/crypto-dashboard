@@ -13,7 +13,6 @@ interface FormData2 {
     password: string;
 }
 
-
 export const signUp = (userData: FormData) => 
     API.post("/api/auth/sign-up", userData);
 

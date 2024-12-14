@@ -7,6 +7,8 @@ export default {
     "./src/components/faq.tsx",
     "./src/components/protectedNavbar.tsx",
     "./src/App.tsx",
+    "./src/components/linechart.tsx",
+    "./src/components/areachart.tsx",
     "./src/routes/home.tsx",
     "./src/routes/example.tsx",
     "./src/routes/dashboard.tsx",
