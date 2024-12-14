@@ -16,4 +16,4 @@ interface DashboardData {
 }
 
 export const fetchDashboardData = (userId: string | undefined): Promise<DashboardData> => 
-    API.get(`/users/${userId}/dashboard`).then(response => response.data);
+    API.get(`/api/users/${userId}/dashboard`).then(response => response.data);
