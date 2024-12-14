@@ -19,34 +19,24 @@ export const Dashboard: React.FC = () => {
   const [priceData, setPriceData] = useState<EthData[]>([]);
   const [marketCapData, setMarketCapData] = useState<EthData[]>([]);
   const [volumeData, setVolumeData] = useState<EthData[]>([]);
-
-  const gridTemplateArea = `
-    "a b"
-    "a b"
-    "a b"
-    "a b"
-    "c d"
-    "c d"
-    "c d"
-    "c d"
-    "e f"
-    "e f"
-    "e f"
-    "e f"
-  `
-
+  
   const { userId } = useParams<{ userId: string }>();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const dashboardData = await fetchDashboardData(userId!); // `!` ensures `userId` is defined
-        const { priceTrends, marketCaps, totalVolumes } = dashboardData;
+        const token = localStorage.getItem("authToken");
+        if (userId && token) {
+          const dashboardData = await fetchDashboardData(userId, token);
+          const { priceTrends, marketCaps, totalVolumes } = dashboardData;
 
-        setPriceData(priceTrends);
-        setMarketCapData(marketCaps);
-        setVolumeData(totalVolumes);
+          setPriceData(priceTrends);
+          setMarketCapData(marketCaps);
+          setVolumeData(totalVolumes);
+        } else {
+          setNotification({ message: "Authentication required", type: "error" });
+        }
       } catch (error: unknown) {
         if (axios.isAxiosError(error) && error.response) {
           const errorMessage = error.response.data.message || "Error during data fetch";
@@ -68,19 +58,11 @@ export const Dashboard: React.FC = () => {
     return <div>Loading...</div>;
   }
 
-
   return (
     <section className='background-container overflow-x-hidden bg-accent-dark' id='background-container'>
-      <div className=' mt-12 pt-12  mx-auto py-4 md:w-4/5'>
+      <div className='mt-12 pt-12 mx-auto py-4 md:w-4/5'>
         <h1 className='text-text-dark font-bold text-xl'>Hello {IsAuthenticated ? username : 'Guest'}</h1>
-        <div className="grid gap-4 py-6"
-          style={{
-            gridTemplateColumns: "repeat(, minmax(370px, 1fr))",
-            gridTemplateRows:  "repeat(10, minmax(60px, 1fr))",
-            gridTemplateAreas: gridTemplateArea,
-
-          }}
-        >
+        <div className="grid gap-4 py-6">
           <FlexibleLineChart 
             data={priceData} 
             dataKey="price" 

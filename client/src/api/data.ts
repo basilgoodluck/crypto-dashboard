@@ -15,9 +15,10 @@ interface DashboardData {
     totalVolumes: EthData[];
 }
 
-export const fetchDashboardData = (userId: string | undefined, token: string): Promise<DashboardData> => 
-    API.get(`/api/users/${userId}/dashboard`, {
+export const fetchDashboardData = (userId: string, token: string): Promise<DashboardData> => {
+    return API.get(`/api/users/${userId}/dashboard`, {
         headers: {
-            Authorization: `Bearer ${token}` 
+            Authorization: `Bearer ${token}`
         }
     }).then(response => response.data);
+};
