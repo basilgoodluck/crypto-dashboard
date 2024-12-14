@@ -8,32 +8,30 @@ import dataRoute from "./routes/dataRoute.mjs";
 import dashboardRoute from "./routes/dashboardRoute.mjs";
 import { fetchEthHourlyPriceTrends, fetchEthHourlyMarketCaps, fetchEthHourlyTotalVolumes } from "./config/fetchEth.mjs";
 import { writeToFile } from "./utils/writeToFile.mjs";
-import { generateRandomCode } from "./utils/generateRandomCode.mjs";
 
 configDotenv()
-const allowedOrigins = [
-    'https://crypto-dashboard-brown.vercel.app',
-    'http://localhost:5173'
-  ];
+// const allowedOrigins = [
+//     'https://crypto-dashboard-brown.vercel.app',
+//     'http://localhost:5173'
+//   ];
   
-const corsOptions = {
-    origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-        } else {
-        callback(new Error('Not allowed by CORS'));
-        }
-    },
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true, 
-};
+// const corsOptions = {
+//     origin: function (origin, callback) {
+//         if (!origin || allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//         } else {
+//         callback(new Error('Not allowed by CORS'));
+//         }
+//     },
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//     credentials: true, 
+// };
 
 const PORT = process.env.PORT || 3333
 const app = express()
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json())
 
-console.log(generateRandomCode())
 app.use("/api/auth", authRoute)
 app.use("/api", dataRoute)
 app.use("/api", dashboardRoute)
