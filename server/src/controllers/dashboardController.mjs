@@ -10,9 +10,10 @@ const dashboardController = async (req, res) => {
     }
 
     if (req.user?.userId !== userId) {
-      console.log("Access denied")
+      console.log("Access denied");
       return res.status(403).json({ message: "Access denied" });
     }
+
     const db = await connectDB();
     const users = db.collection("users");
 
@@ -21,21 +22,27 @@ const dashboardController = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User does not exist" });
     }
-    const priceTrends = await getPriceTrends()
-    const marketCaps = await getMarketCaps()
-    const totalVolumes = await getTotalVolumes()
+
+    const [priceTrends, marketCaps, totalVolumes] = await Promise.all([
+      getPriceTrends(),
+      getMarketCaps(),
+      getTotalVolumes()
+    ]);
+
+    if (priceTrends.status !== 200 || marketCaps.status !== 200 || totalVolumes.status !== 200) {
+      return res.status(500).json({ message: "Failed to retrieve data" });
+    }
+
     return res.status(200).json({
       name: user.name,
-      priceTrends,
-      marketCaps,
-      totalVolumes
+      priceTrends: priceTrends.data,
+      marketCaps: marketCaps.data,
+      totalVolumes: totalVolumes.data
     });
+
   } catch (error) {
     console.error("Error in dashboardController:", error);
-    return res.status(500).json({
-      message: "Server error",
-      error: error.message
-    });
+    return res.status(500).json({ message: "Server error", error: error.message });
   }
 };
 
