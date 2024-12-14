@@ -5,7 +5,7 @@ import cron from "node-cron"
 import { configDotenv } from "dotenv";
 import authRoute from "./routes/authRoute.mjs";
 import dataRoute from "./routes/dataRoute.mjs";
-import dashboardRoute from "./routes/dashboardRoute.mjs";
+// import dashboardRoute from "./routes/dashboardRoute.mjs";
 import { fetchEthHourlyPriceTrends, fetchEthHourlyMarketCaps, fetchEthHourlyTotalVolumes } from "./config/fetchEth.mjs";
 import { writeToFile } from "./utils/writeToFile.mjs";
 import { generateRandomCode } from "./utils/generateRandomCode.mjs";
@@ -36,7 +36,7 @@ app.use(express.json())
 console.log(generateRandomCode())
 app.use("/api/auth", authRoute)
 app.use("/api", dataRoute)
-app.use("/", dashboardRoute)
+// app.use("/", dashboardRoute)
 
 const total_volumes = await fetchEthHourlyTotalVolumes();
     writeToFile("ethDailyTotalVolumes.json", JSON.stringify(total_volumes));
