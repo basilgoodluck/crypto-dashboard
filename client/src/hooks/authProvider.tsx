@@ -1,7 +1,6 @@
 import { useContext, createContext, useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
-import axios from "axios";
-
+import API from "../api/refreshToken";
 interface AuthContextType {
   IsAuthenticated: boolean;
   username: string;
@@ -34,7 +33,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
       const refreshToken = localStorage.getItem("refreshToken");
       if (!refreshToken) throw new Error("No refresh token available");
 
-      const response = await axios.post("/api/refresh-token", { token: refreshToken });
+      const response = await API.post("/api/refresh-token", { token: refreshToken });
       const { authToken } = response.data;
 
       localStorage.setItem("authToken", authToken);

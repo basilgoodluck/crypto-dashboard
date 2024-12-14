@@ -8,6 +8,7 @@ export default {
     "./src/components/protectedNavbar.tsx",
     "./src/App.tsx",
     "./src/routes/home.tsx",
+    "./src/routes/example.tsx",
     "./src/routes/dashboard.tsx",
     "./src/routes/signup.tsx",
     "./src/routes/signin.tsx",
