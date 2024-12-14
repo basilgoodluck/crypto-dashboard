@@ -23,9 +23,14 @@ const dashboardController = async (req, res) => {
             return res.status(404).json({ message: "User does not exist" });
         }
 
-        const priceTrends = await getPriceTrends(req, res);
-        const marketCaps = await getMarketCaps(req, res);
-        const totalVolumes = await getTotalVolumes(req, res);
+        const priceTrends = await getPriceTrends();
+        const marketCaps = await getMarketCaps();
+        const totalVolumes = await getTotalVolumes();
+
+        // Handle cases where data might be null
+        if (priceTrends === null || marketCaps === null || totalVolumes === null) {
+            return res.status(404).json({ message: "Some data not found" });
+        }
 
         return res.status(200).json({
             name: user.name,
