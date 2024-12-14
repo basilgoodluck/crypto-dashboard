@@ -41,8 +41,8 @@ export const Dashboard: React.FC = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const dashboardData = await fetchDashboardData(userId)
-        const {priceTrends, marketCaps, totalVolumes} = dashboardData
+        const dashboardData = await fetchDashboardData(userId!); // `!` ensures `userId` is defined
+        const { priceTrends, marketCaps, totalVolumes } = dashboardData;
 
         setPriceData(priceTrends);
         setMarketCapData(marketCaps);
@@ -59,13 +59,15 @@ export const Dashboard: React.FC = () => {
       }
     };
 
-    fetchData();
-  }, []);
-  
+    if (userId && IsAuthenticated) {
+      fetchData();
+    }
+  }, [userId, IsAuthenticated]);
 
   if (loading) {
     return <div>Loading...</div>;
   }
+
 
   return (
     <section className='background-container overflow-x-hidden bg-accent-dark' id='background-container'>
