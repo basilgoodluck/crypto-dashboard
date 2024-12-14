@@ -12,7 +12,7 @@ import { generateRandomCode } from "./utils/generateRandomCode.mjs";
 
 configDotenv()
 const allowedOrigins = [
-    'https://crypto-dashboard-brown.vercel.app/',
+    'https://crypto-dashboard-brown.vercel.app',
     'http://localhost:5173'
   ];
   
