@@ -1,5 +1,4 @@
 import axios from "axios";
-// import { useAuth } from "../hooks/authProvider"; // Import if you want to use SignOut from the hook
 
 const API = axios.create({
     baseURL: "https://crypto-dashboard-pxrw.onrender.com",
@@ -71,8 +70,12 @@ interface DashboardData {
     totalVolumes: EthData[];
 }
 
-export const fetchDashboardData = (userId: string): Promise<DashboardData> => {
-    return API.get(`/api/users/${userId}/dashboard`).then(response => response.data);
+export const fetchDashboardData = (userId: string, token: string): Promise<DashboardData> => {
+    return API.get(`/api/users/${userId}/dashboard`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }).then(response => response.data);
 };
 
 export default API;
