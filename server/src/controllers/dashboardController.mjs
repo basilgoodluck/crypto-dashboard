@@ -1,5 +1,6 @@
 import { ObjectId } from "mongodb";
 import { connectDB } from "../config/mongodb.mjs";
+import { getPriceTrends, getMarketCaps, getTotalVolumes } from "./dataController.mjs";
 
 const dashboardController = async (req, res) => {
   try {
@@ -20,8 +21,14 @@ const dashboardController = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User does not exist" });
     }
+    const priceTrends = await getPriceTrends()
+    const marketCaps = await getMarketCaps()
+    const totalVolumes = await getTotalVolumes()
     return res.status(200).json({
       name: user.name,
+      priceTrends,
+      marketCaps,
+      totalVolumes
     });
   } catch (error) {
     console.error("Error in dashboardController:", error);

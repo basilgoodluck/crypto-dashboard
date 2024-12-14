@@ -1,9 +1,10 @@
-// import { Router } from "express";
-// import authenticate from "../middlewares/authMiddleware.mjs";
-// import dashboardController  from "../controllers/dashboardController.mjs";
+import { Router } from "express";
+import authenticate from "../middlewares/authMiddleware.mjs";
+import dashboardController  from "../controllers/dashboardController.mjs";
 
-// const router = Router()
+const router = Router()
 
-// router.get("/users/:userId/dashboard", authenticate, dashboardController)
+router.get("/users/:userId/dashboard", authenticate, dashboardController)
 
-// export default router
+export default router
+

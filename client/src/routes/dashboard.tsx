@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/authProvider';
 import axios from 'axios';
 import { useNotification } from '../hooks/notificationContext';
-import { fetchPriceTrends, fetchMarketCaps, fetchTotalVolumes } from '../api/data';
+import { fetchDashboardData } from '../api/data';
 import FlexibleAreaChart from '../components/areachart';
 import FlexibleLineChart from '../components/linechart';
+import { useParams } from 'react-router-dom';
 
 interface EthData {
   timestamp: string;
@@ -34,15 +35,14 @@ export const Dashboard: React.FC = () => {
     "e f"
   `
 
-  console.log(priceData)
+  const { userId } = useParams<{ userId: string }>();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const priceTrends = (await fetchPriceTrends()).slice(0, 10);
-        const marketCaps = (await fetchMarketCaps()).slice(0, 10);
-        const totalVolumes = (await fetchTotalVolumes()).slice(0, 10);
+        const dashboardData = await fetchDashboardData(userId)
+        const {priceTrends, marketCaps, totalVolumes} = dashboardData
 
         setPriceData(priceTrends);
         setMarketCapData(marketCaps);
@@ -80,17 +80,17 @@ export const Dashboard: React.FC = () => {
           }}
         >
           <FlexibleLineChart 
-            data={marketCapData} 
+            data={priceData} 
             dataKey="price" 
             color="#000000" 
             gridArea="a"
           />
-          {/* <FlexibleAreaChart 
-            data={volumeData} 
+          <FlexibleAreaChart 
+            data={marketCapData} 
             dataKey="price" 
             color="#1e40af" 
             gridArea="b"
-          /> */}
+          />
           <FlexibleAreaChart 
             data={volumeData} 
             dataKey="price" 

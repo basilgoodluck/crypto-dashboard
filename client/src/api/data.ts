@@ -8,12 +8,12 @@ interface EthData {
     timestamp: string,
     price: string
 }
+interface DashboardData {
+    name: string;
+    priceTrends: EthData[];
+    marketCaps: EthData[];
+    totalVolumes: EthData[];
+}
 
-export const fetchPriceTrends = (): Promise<EthData[]> => 
-    API.get("/api/eth-price-trends").then(response => response.data);
-
-export const fetchMarketCaps = (): Promise<EthData[]> => 
-    API.get("/api/eth-market-caps").then(response => response.data);
-
-export const fetchTotalVolumes = (): Promise<EthData[]> => 
-    API.get("/api/eth-total-volumes").then(response => response.data);
+export const fetchDashboardData = (userId: string | undefined): Promise<DashboardData> => 
+    API.get(`/users/${userId}/dashboard`).then(response => response.data);
