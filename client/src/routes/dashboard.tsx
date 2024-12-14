@@ -61,6 +61,7 @@ export const Dashboard: React.FC = () => {
 
     fetchData();
   }, []);
+  
 
   if (loading) {
     return <div>Loading...</div>;
