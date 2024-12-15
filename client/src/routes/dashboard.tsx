@@ -28,7 +28,7 @@ export const Dashboard: React.FC = () => {
         setLoading(true);
         const token = localStorage.getItem("authToken");
         if (userId && token) {
-          const dashboardData = await fetchDashboardData(token);
+          const dashboardData = await fetchDashboardData(userId, token);
           const { priceTrends, marketCaps, totalVolumes } = dashboardData;
 
           setPriceData(priceTrends);

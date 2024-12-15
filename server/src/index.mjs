@@ -34,7 +34,7 @@ app.use(express.json())
 
 app.use("/api/auth", authRoute)
 app.use("/api", dataRoute)
-app.use("/api", dashboardRoute)
+app.use("/", dashboardRoute)
 
 const total_volumes = await fetchEthHourlyTotalVolumes();
     writeToFile("ethDailyTotalVolumes.json", JSON.stringify(total_volumes));
