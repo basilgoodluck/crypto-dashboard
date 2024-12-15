@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useAuth } from '../hooks/authProvider';
-import axios from 'axios';
-import { useNotification } from '../hooks/notificationContext';
-import { fetchDashboardData } from '../api/data';
-import FlexibleAreaChart from '../components/areachart';
-import FlexibleLineChart from '../components/linechart';
-// import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useAuth } from "../hooks/authProvider";
+import axios from "axios";
+import { useNotification } from "../hooks/notificationContext";
+import { fetchDashboardData } from "../api/data";
+import FlexibleAreaChart from "../components/areachart";
+import FlexibleLineChart from "../components/linechart";
 
 interface EthData {
   timestamp: string;
@@ -19,25 +18,22 @@ export const Dashboard: React.FC = () => {
   const [priceData, setPriceData] = useState<EthData[]>([]);
   const [marketCapData, setMarketCapData] = useState<EthData[]>([]);
   const [volumeData, setVolumeData] = useState<EthData[]>([]);
-  
-  // const { userId } = useParams<{ userId: string }>();
 
-  const userId = localStorage.getItem("userId")
   useEffect(() => {
     const fetchData = async () => {
+      if (!IsAuthenticated) {
+        setNotification({ message: "Authentication required", type: "error" });
+        return;
+      }
+
       try {
         setLoading(true);
-        const token = localStorage.getItem("authToken");
-        if (userId && token) {
-          const dashboardData = await fetchDashboardData(token);
-          const { priceTrends, marketCaps, totalVolumes } = dashboardData;
+        const dashboardData = await fetchDashboardData();
+        const { priceTrends, marketCaps, totalVolumes } = dashboardData;
 
-          setPriceData(priceTrends);
-          setMarketCapData(marketCaps);
-          setVolumeData(totalVolumes);
-        } else {
-          setNotification({ message: "Authentication required", type: "error" });
-        }
+        setPriceData(priceTrends || []);
+        setMarketCapData(marketCaps || []);
+        setVolumeData(totalVolumes || []);
       } catch (error: unknown) {
         if (axios.isAxiosError(error) && error.response) {
           const errorMessage = error.response.data.message || "Error during data fetch";
@@ -50,37 +46,35 @@ export const Dashboard: React.FC = () => {
       }
     };
 
-    if (userId && IsAuthenticated) {
-      fetchData();
-    }
-  }, [userId, IsAuthenticated]);
+    fetchData();
+  }, [IsAuthenticated]);
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
   return (
-    <section className='background-container overflow-x-hidden bg-accent-dark' id='background-container'>
-      <div className='mt-12 pt-12 mx-auto py-4 md:w-4/5'>
-        <h1 className='text-text-dark font-bold text-xl'>Hello {IsAuthenticated ? username : 'Guest'}</h1>
+    <section className="background-container overflow-x-hidden bg-accent-dark" id="background-container">
+      <div className="mt-12 pt-12 mx-auto py-4 md:w-4/5">
+        <h1 className="text-text-dark font-bold text-xl">Hello {username || "Guest"}</h1>
         <div className="grid gap-4 py-6">
           <FlexibleLineChart 
             data={priceData} 
             dataKey="price" 
             color="#000000" 
-            gridArea="a"
+            gridArea="a" 
           />
           <FlexibleAreaChart 
             data={marketCapData} 
             dataKey="price" 
             color="#1e40af" 
-            gridArea="b"
+            gridArea="b" 
           />
           <FlexibleAreaChart 
             data={volumeData} 
             dataKey="price" 
             color="#fff" 
-            gridArea="c"
+            gridArea="c" 
           />
         </div>
       </div>
