@@ -9,22 +9,6 @@ import { fetchEthHourlyPriceTrends, fetchEthHourlyMarketCaps, fetchEthHourlyTota
 import { writeToFile } from "./utils/writeToFile.mjs";
 
 configDotenv()
-// const allowedOrigins = [
-//     'https://crypto-dashboard-brown.vercel.app',
-//     'http://localhost:5173'
-//   ];
-  
-// const corsOptions = {
-//     origin: function (origin, callback) {
-//         if (!origin || allowedOrigins.includes(origin)) {
-//         callback(null, true);
-//         } else {
-//         callback(new Error('Not allowed by CORS'));
-//         }
-//     },
-//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-//     credentials: true, 
-// };
 
 const PORT = process.env.PORT || 3333
 const app = express()
