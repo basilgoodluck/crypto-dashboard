@@ -13,10 +13,16 @@ const dashboardController = async (req, res) => {
         const db = await connectDB();
         const users = db.collection("users");
 
-        const objectId = ObjectId.createFromHexString(userId);
+        let objectId;
+        try {
+            objectId = ObjectId.createFromHexString(userId);
+        } catch (error) {
+            return res.status(400).json({ message: error.message });
+        }
+
         const user = await users.findOne({ _id: objectId });
         if (!user) {
-            return res.status(404).json({ message: "User does not exist" });
+            return res.status(404).json({ message: "User not found" });
         }
 
         const priceTrends = await getPriceTrends();
@@ -24,7 +30,7 @@ const dashboardController = async (req, res) => {
         const totalVolumes = await getTotalVolumes();
 
         if (priceTrends === null || marketCaps === null || totalVolumes === null) {
-            return res.status(404).json({ message: "Some data not found" });
+            return res.status(404).json({ message: "Data not found" });
         }
 
         return res.status(200).json({
