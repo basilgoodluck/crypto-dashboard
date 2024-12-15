@@ -22,7 +22,7 @@ const Navbar: React.FC = () => {
   })
   const aboveMedia = useMediaQuery("(min-width: 1060px)")
   return (
-    <header ref={headerRef} className=' bg-background-dark  shadow-xl shadow-gray-300 fixed w-full z-20'>
+    <header ref={headerRef} className=' bg-background-dark  shadow-sm shadow-gray-200 fixed w-full z-20'>
       <div className='flex w-11/12 md:w-4/5 justify-between items-center mx-auto py-4'>
         <h1  className='font-black text-accent-dark text-2xl'>ETH.DB</h1>
         {

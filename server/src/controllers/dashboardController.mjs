@@ -27,7 +27,6 @@ const dashboardController = async (req, res) => {
         const marketCaps = await getMarketCaps();
         const totalVolumes = await getTotalVolumes();
 
-        // Handle cases where data might be null
         if (priceTrends === null || marketCaps === null || totalVolumes === null) {
             return res.status(404).json({ message: "Some data not found" });
         }

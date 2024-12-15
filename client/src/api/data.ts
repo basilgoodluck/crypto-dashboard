@@ -4,7 +4,6 @@ const API = axios.create({
     baseURL: "https://crypto-dashboard-pxrw.onrender.com",
 });
 
-// Request interceptor
 API.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem('authToken');
@@ -18,36 +17,28 @@ API.interceptors.request.use(
     }
 );
 
-// Response interceptor
 API.interceptors.response.use(
     (response) => response,
     async (error) => {
         const originalRequest = error.config;
 
-        // If the error status is 401 and there is no originalRequest._retry flag,
-        // it means the token has expired
         if (error.response?.status === 401 && !originalRequest._retry) {
             originalRequest._retry = true;
 
             try {
-                // Attempt to refresh the token
                 const refreshToken = localStorage.getItem('refreshToken');
                 const response = await axios.post('/api/refresh-token', { token: refreshToken });
                 
                 const { authToken } = response.data;
                 
-                // Update the token in localStorage
                 localStorage.setItem('authToken', authToken);
 
-                // Retry the original request with the new token
                 originalRequest.headers['Authorization'] = `Bearer ${authToken}`;
                 return axios(originalRequest);
             } catch (refreshError) {
-                // If refresh fails, log out the user
                 localStorage.removeItem('authToken');
                 localStorage.removeItem('refreshToken');
                 
-                // Optionally redirect to login or trigger sign out
                 window.location.href = '/sign-in';
                 
                 return Promise.reject(refreshError);
@@ -71,7 +62,7 @@ interface DashboardData {
 }
 
 export const fetchDashboardData = (userId: string, token: string): Promise<DashboardData> => {
-    return API.get(`/api/users/${userId}/dashboard`, {
+    return API.get(`/users/${userId}/dashboard`, {
         headers: {
             Authorization: `Bearer ${token}`
         }

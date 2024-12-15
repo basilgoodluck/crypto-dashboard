@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import playstoreLogo from "../assets/playstoreLogo.png";
 import appstoreLogo from "../assets/appstore.png"
-import mobileImage from "../assets/ETH.DB.png"
+import mobileImage from "../assets/mobile.png"
 import { useState, useEffect } from 'react';
 import { useSpring, animated } from '@react-spring/web';
 import AnimatedButton from '../components/animatedButton';
@@ -91,21 +91,21 @@ function Home() {
               {displayedText}
             </animated.h1>
           </div>
-          <h1 className='text-3xl md:text-4xl font-semibold underline underline-offset-8 text-accent' style={{lineHeight:"3.5rem"}}>Secure Your Portfolio with Confidence</h1>
+          <h1 className='text-4xl md:text-5xl capitalize font-black text-accent' style={{lineHeight:"3.5rem"}}>Secure Your Portfolio with Confidence</h1>
           <p className='text-sm text-text-semiLight'>Track and manage your Ethereum assets seamlessly. Monitor tokens, coins, and NFTs in real-time, all from a single intuitive dashboard</p>
           <Link className='' to="/dashboard" ><AnimatedButton e={"Get started"} /></Link>
         </div>
         <div className='' >
-          <div className='w-11/12 md:w-4/5 mx-auto flex flex-col justify-between items-center py-4'>
-            <div className='w-full'>
+          <div className='w-full mx-auto flex flex-col justify-between items-center py-4'>
+            <div className='w-full h-[300px] overflow-hidden'>
               <img src={mobileImage} alt='mobile image' className='shadow-md shadow-gray-100 w-full rounded-t-[30px]' />
             </div>
             <div className="text-text-dark w-full flex justify-center gap-5 items-center mt-4">
-              <Link to="https://play.google.com/store" target="_blank" className="flex items-center bg-secondary rounded-2xl text-sm p-3 h-14 gap-2">
+              <Link to="https://play.google.com/store" target="_blank" className="flex items-center bg-accent-dark rounded-2xl text-sm p-3 h-14 gap-2">
                 <img src={playstoreLogo} alt="Download on Google Play" className="w-10" />
                 Google Play
               </Link>
-              <Link to="https://www.apple.com/app-store/" target="_blank" className="bg-secondary rounded-2xl text-sm p-3 flex items-center h-14 gap-2">
+              <Link to="https://www.apple.com/app-store/" target="_blank" className="bg-accent-dark rounded-2xl text-sm p-3 flex items-center h-14 gap-2">
                 <img src={appstoreLogo} alt="Download on the App Store" className="w-10" />
                 App Store
               </Link>
