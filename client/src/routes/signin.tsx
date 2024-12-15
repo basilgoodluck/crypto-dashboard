@@ -57,7 +57,7 @@ const Signup: React.FC = () => {
         SignIn(response.data.accessToken, response.data.username)
         setNotification({ message: "Login successful", type: "success"})
       }
-      const from = location.state?.from?.pathname || `/users/${response.data.userId}/dashboard`;
+      const from = location.state?.from?.pathname || `/dashboard`;
       navigate(from, { replace: true });
     }  catch (error: unknown) {
       if (axios.isAxiosError(error) && error.response) {

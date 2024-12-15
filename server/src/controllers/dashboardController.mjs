@@ -4,7 +4,7 @@ import { ObjectId } from "mongodb";
 
 const dashboardController = async (req, res) => {
     try {
-        const { userId } = req.user; // Extract userId from decoded token
+        const { userId } = req.user;
 
         if (!userId) {
             return res.status(400).json({ message: "Invalid or missing user information" });

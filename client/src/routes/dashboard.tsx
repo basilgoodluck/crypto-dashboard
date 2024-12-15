@@ -5,7 +5,7 @@ import { useNotification } from '../hooks/notificationContext';
 import { fetchDashboardData } from '../api/data';
 import FlexibleAreaChart from '../components/areachart';
 import FlexibleLineChart from '../components/linechart';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 
 interface EthData {
   timestamp: string;
@@ -20,8 +20,9 @@ export const Dashboard: React.FC = () => {
   const [marketCapData, setMarketCapData] = useState<EthData[]>([]);
   const [volumeData, setVolumeData] = useState<EthData[]>([]);
   
-  const { userId } = useParams<{ userId: string }>();
+  // const { userId } = useParams<{ userId: string }>();
 
+  const userId = localStorage.getItem("userId")
   useEffect(() => {
     const fetchData = async () => {
       try {

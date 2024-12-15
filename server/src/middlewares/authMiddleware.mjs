@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import process from "node:process";
+import process from "process";
 
 const authenticate = async (req, res, next) => {
     const authHeader = req.headers.authorization;
@@ -11,7 +11,8 @@ const authenticate = async (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_ACCESS_TOKEN);
-        req.user = decoded; // Attach decoded token payload to req.user
+        console.log(req.user)
+        req.user = decoded; 
         next();
     } catch (error) {
         console.error("JWT verification error:", error.message);

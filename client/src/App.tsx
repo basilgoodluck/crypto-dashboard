@@ -38,7 +38,7 @@ function App() {
             </Route>
             <Route path="/" element={<ProtectedLayout />}>
               <Route
-                path="/users/:userId/dashboard"
+                path="/dashboard"
                 element={
                   <ProtectedRoute>
                     <Dashboard />
@@ -46,7 +46,7 @@ function App() {
                 }
               />
               <Route
-                path="/users/:userId"
+                path="/account-settings"
                 element={
                   <ProtectedRoute>
                     <Account />

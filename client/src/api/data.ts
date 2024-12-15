@@ -62,7 +62,7 @@ interface DashboardData {
 }
 
 export const fetchDashboardData = (token: string): Promise<DashboardData> => {
-    return API.get(`/users/:userId/dashboard`, {
+    return API.get(`/dashboard`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
