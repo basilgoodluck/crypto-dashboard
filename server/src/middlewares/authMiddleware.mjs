@@ -8,12 +8,11 @@ const authenticate = async (req, res, next) => {
     }
 
     const token = authHeader.startsWith("Bearer ") ? authHeader.split(" ")[1] : authHeader;
-    
+
     try {
         const decoded = jwt.verify(token, process.env.JWT_ACCESS_TOKEN);
-        req.user = decoded; 
-        next(); 
-        console.log("going to the next")
+        req.user = decoded; // Attach decoded token payload to req.user
+        next();
     } catch (error) {
         console.error("JWT verification error:", error.message);
         return res.status(403).json({ message: "JWT verification failed", error: error.message });

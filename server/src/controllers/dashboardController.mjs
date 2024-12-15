@@ -4,14 +4,10 @@ import { ObjectId } from "mongodb";
 
 const dashboardController = async (req, res) => {
     try {
-        const { userId } = req.params;
-        if (!userId) {
-            return res.status(400).json({ message: "Invalid or missing userId" });
-        }
+        const { userId } = req.user; // Extract userId from decoded token
 
-        if (req.user?.userId !== userId) {
-            console.log("Access denied");
-            return res.status(403).json({ message: "Access denied" });
+        if (!userId) {
+            return res.status(400).json({ message: "Invalid or missing user information" });
         }
 
         const db = await connectDB();
