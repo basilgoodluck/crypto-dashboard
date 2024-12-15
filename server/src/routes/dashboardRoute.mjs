@@ -1,5 +1,5 @@
 import { Router } from "express";
-import authenticate from "../middlewares/authMiddleware.mjs";
+// import authenticate from "../middlewares/authMiddleware.mjs";
 import dashboardController  from "../controllers/dashboardController.mjs";
 
 const router = Router()
@@ -9,7 +9,7 @@ router.get("/dashboard", (req, res, next) => {
     console.log("Request params:", req.params);
     console.log("Authorization header:", req.headers.authorization);
     next();
-}, authenticate, dashboardController);
+}, dashboardController);
 
 
 export default router
