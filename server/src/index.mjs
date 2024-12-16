@@ -7,6 +7,7 @@ import authRoute from "./routes/authRoute.mjs";
 import dashboardRoute from "./routes/dashboardRoute.mjs";
 import { fetchEthHourlyPriceTrends, fetchEthHourlyMarketCaps, fetchEthHourlyTotalVolumes } from "./config/fetchEth.mjs";
 import { writeToFile } from "./utils/writeToFile.mjs";
+import fakeDashboardRoute from "./routes/fakedashboard.mjs"
 
 configDotenv()
 
@@ -17,6 +18,7 @@ app.use(express.json())
 
 app.use("/api/auth", authRoute)
 app.use("/api", dashboardRoute)
+app.use("/api", fakeDashboardRoute)
 
 cron.schedule('0 */1 * * *', async () => {
     console.log('Fetching Ethereum price trends...');

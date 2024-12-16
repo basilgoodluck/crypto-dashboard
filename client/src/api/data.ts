@@ -75,5 +75,9 @@ export const fetchDashboardData = async () => {
     const response = await API.get(`/api/dashboard`);
     return response.data;
 };
+export const fetchFakeDashboardData = async () => {
+    const response = await API.get(`/api/fake-dashboard`);
+    return response.data;
+};
 
 export default API;
