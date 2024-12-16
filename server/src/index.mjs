@@ -13,8 +13,15 @@ configDotenv()
 
 const PORT = process.env.PORT || 3333
 const app = express()
-app.use(cors());
 app.use(express.json())
+const corsOptions = {
+    origin: "https://crypto-dashboard-orpin-three.vercel.app", 
+    methods: ["GET", "POST", "PUT", "DELETE"], 
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true 
+  };
+  
+app.use(cors(corsOptions));
 
 app.use("/api/auth", authRoute)
 app.use("/api", dashboardRoute)
