@@ -22,7 +22,7 @@ const refreshToken = async (): Promise<string> => {
     }
 
     try {
-        const response = await API.post<{ authToken: string }>("/api/refresh-token", { token: refreshToken });
+        const response = await axios.post<{ authToken: string }>("/api/refresh-token", { token: refreshToken });
         const { authToken } = response.data;
         localStorage.setItem("authToken", authToken);
         return authToken;
@@ -36,7 +36,7 @@ const refreshToken = async (): Promise<string> => {
 
 export const fetchDashboardData = async () => {
     const token = await validateAndRefreshToken();
-    const response = await API.get(`/api/dashboard`, {
+    const response = await axios.get(`/api/dashboard`, {
         headers: { Authorization: `Bearer ${token}` },
     });
     return response.data;

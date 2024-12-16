@@ -54,7 +54,7 @@ export const signIn = async (req, res) => {
     const accessToken = jwt.sign(
       { userId: user._id },
       JWT_ACCESS_TOKEN,
-      { subject: "Access API", expiresIn: "10m" }
+      { subject: "Access API", expiresIn: "40m" }
     );
 
     const refreshToken = jwt.sign(
