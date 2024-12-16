@@ -15,7 +15,6 @@ const PORT = process.env.PORT || 3333
 const app = express()
 app.use(express.json())
 const corsOptions = {
-    origin: "https://crypto-dashboard-orpin-three.vercel.app", 
     methods: ["GET", "POST", "PUT", "DELETE"], 
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true 
