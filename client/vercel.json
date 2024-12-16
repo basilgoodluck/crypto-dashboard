@@ -8,20 +8,11 @@
     ],
     "routes": [
       {
-        "src": "/",
-        "dest": "/"
-      },
-      {
-        "src": "/dashboard",
-        "dest": "/"
-      },
-      {
-        "src": "/sign-in",
-        "dest": "/"
-      },
-      {
         "src": "/(.*)",
-        "dest": "/"
+        "dest": "/index.html"
       }
-    ]
+    ],
+    "buildCommand": "npm run build",
+    "outputDirectory": "dist",
+    "installCommand": "npm install"
   }
