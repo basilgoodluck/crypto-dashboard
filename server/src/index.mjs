@@ -18,8 +18,6 @@ app.use(express.json())
 app.use("/api/auth", authRoute)
 app.use("/api", dashboardRoute)
 
-// const total_volumes = await fetchEthHourlyTotalVolumes();
-//     writeToFile("ethDailyTotalVolumes.json", JSON.stringify(total_volumes));
 cron.schedule('0 */1 * * *', async () => {
     console.log('Fetching Ethereum price trends...');
     const priceTrends = await fetchEthHourlyPriceTrends();

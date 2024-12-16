@@ -31,9 +31,9 @@ export const Dashboard: React.FC = () => {
         const dashboardData = await fetchDashboardData();
         const { priceTrends, marketCaps, totalVolumes } = dashboardData;
 
-        setPriceData(priceTrends || []);
-        setMarketCapData(marketCaps || []);
-        setVolumeData(totalVolumes || []);
+        setPriceData(priceTrends.slice(0, 10) || []);
+        setMarketCapData(marketCaps.slice(0, 10) || []);
+        setVolumeData(totalVolumes.slice(0, 10) || []);
       } catch (error: unknown) {
         if (axios.isAxiosError(error) && error.response) {
           const errorMessage = error.response.data.message || "Error during data fetch";
