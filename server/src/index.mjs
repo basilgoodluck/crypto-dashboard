@@ -7,7 +7,6 @@ import authRoute from "./routes/authRoute.mjs";
 import dashboardRoute from "./routes/dashboardRoute.mjs";
 import { fetchEthHourlyPriceTrends, fetchEthHourlyMarketCaps, fetchEthHourlyTotalVolumes } from "./config/fetchEth.mjs";
 import { writeToFile } from "./utils/writeToFile.mjs";
-import fakeDashboardRoute from "./routes/fakedashboard.mjs"
 
 configDotenv()
 
@@ -15,6 +14,7 @@ const PORT = process.env.PORT || 3333
 const app = express()
 app.use(express.json())
 const corsOptions = {
+    origin: "https://crypto-dashboard-orpin-three.vercel.app", 
     methods: ["GET", "POST", "PUT", "DELETE"], 
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true 
@@ -24,7 +24,6 @@ app.use(cors(corsOptions));
 
 app.use("/api/auth", authRoute)
 app.use("/api", dashboardRoute)
-app.use("/api", fakeDashboardRoute)
 
 cron.schedule('0 */1 * * *', async () => {
     console.log('Fetching Ethereum price trends...');

@@ -37,7 +37,6 @@ const refreshToken = async (): Promise<string> => {
     }
 };
 
-// Fetch dashboard data from the API
 export const fetchDashboardData = async () => {
     const token = await validateAndRefreshToken();
     const response = await axios.get(`/api/dashboard`, {
@@ -46,15 +45,7 @@ export const fetchDashboardData = async () => {
     return response.data;
 };
 
-export const fetchFakeDashboardData = async () => {
-    const token = await validateAndRefreshToken();
-    const response = await axios.get(`/api/fake-dashboard`, {
-        headers: { Authorization: `Bearer ${token}` },
-    });
-    return response.data;
-};
-
-const validateAndRefreshToken = async (): Promise<string> => {
+const validateAndRefreshToken = async () => {
     const token = localStorage.getItem("authToken");
     if (token && validateToken(token)) {
         return token;
@@ -62,6 +53,7 @@ const validateAndRefreshToken = async (): Promise<string> => {
         return await refreshToken();
     }
     throw new Error("No valid auth token found");
+    return token
 };
 
 export default API;
