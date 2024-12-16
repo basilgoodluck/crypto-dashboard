@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Axios instance with dynamic baseURL
 const API = axios.create({
-    baseURL: import.meta.env.PROD ? import.meta.env.VITE_BACKEND_URL : undefined, // Use proxy in development
+    baseURL: "https://crypto-dashboard-pxrw.onrender.com",
 });
 
 // Interfaces for form data

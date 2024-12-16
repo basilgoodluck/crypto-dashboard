@@ -2,7 +2,7 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
 const API = axios.create({
-    baseURL: import.meta.env.PROD ? import.meta.env.VITE_BACKEND_URL : undefined,
+    baseURL: "https://crypto-dashboard-pxrw.onrender.com",
 });
 
 const validateToken = (token: string): boolean => {
