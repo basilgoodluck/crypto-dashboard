@@ -1,12 +1,10 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
-// Dynamically use a base URL only for production (Vite proxy handles development)
 const API = axios.create({
     baseURL: import.meta.env.PROD ? import.meta.env.VITE_BACKEND_URL : undefined,
 });
 
-// Function to validate the token
 const validateToken = (token: string): boolean => {
     try {
         const decoded = jwtDecode<{ exp: number }>(token);
@@ -16,7 +14,6 @@ const validateToken = (token: string): boolean => {
     }
 };
 
-// Function to refresh the token if expired
 const refreshToken = async (): Promise<string> => {
     const refreshToken = localStorage.getItem("refreshToken");
     if (!refreshToken) {
@@ -25,7 +22,7 @@ const refreshToken = async (): Promise<string> => {
     }
 
     try {
-        const response = await axios.post<{ authToken: string }>("/api/refresh-token", { token: refreshToken });
+        const response = await API.post<{ authToken: string }>("/api/refresh-token", { token: refreshToken });
         const { authToken } = response.data;
         localStorage.setItem("authToken", authToken);
         return authToken;
@@ -39,7 +36,7 @@ const refreshToken = async (): Promise<string> => {
 
 export const fetchDashboardData = async () => {
     const token = await validateAndRefreshToken();
-    const response = await axios.get(`/api/dashboard`, {
+    const response = await API.get(`/api/dashboard`, {
         headers: { Authorization: `Bearer ${token}` },
     });
     return response.data;
@@ -53,7 +50,6 @@ const validateAndRefreshToken = async () => {
         return await refreshToken();
     }
     throw new Error("No valid auth token found");
-    return token
 };
 
 export default API;
