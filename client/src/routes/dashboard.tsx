@@ -31,7 +31,7 @@ export const Dashboard: React.FC = () => {
         const dashboardData = await fetchDashboardData();
         const { priceTrends, marketCaps, totalVolumes } = dashboardData;
 
-        setPriceData(priceTrends.slice(0, 10) || []);
+        setPriceData(priceTrends.slice(0, 50) || []);
         setMarketCapData(marketCaps.slice(0, 10) || []);
         setVolumeData(totalVolumes.slice(0, 10) || []);
       } catch (error: unknown) {
