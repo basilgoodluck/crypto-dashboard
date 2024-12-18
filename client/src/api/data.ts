@@ -1,55 +1,55 @@
 import axios from "axios";
-import { jwtDecode } from "jwt-decode";
+// import { jwtDecode } from "jwt-decode";
 
 const API = axios.create({
-    baseURL: "https://crypto-dashboard-pxrw.onrender.com",
+    baseURL: import.meta.env.VITE_BACKEND_URL,
 });
+const token = localStorage.getItem("authToken")
+// const validateToken = (token: string): boolean => {
+//     try {
+//         const decoded = jwtDecode<{ exp: number }>(token);
+//         return decoded.exp * 1000 > Date.now();
+//     } catch {
+//         return false;
+//     }
+// };
 
-const validateToken = (token: string): boolean => {
-    try {
-        const decoded = jwtDecode<{ exp: number }>(token);
-        return decoded.exp * 1000 > Date.now();
-    } catch {
-        return false;
-    }
-};
+// const refreshToken = async (): Promise<string> => {
+//     const refreshToken = localStorage.getItem("refreshToken");
+//     if (!refreshToken) {
+//         window.location.href = "/sign-in";
+//         throw new Error("Refresh token not found");
+//     }
 
-const refreshToken = async (): Promise<string> => {
-    const refreshToken = localStorage.getItem("refreshToken");
-    if (!refreshToken) {
-        window.location.href = "/sign-in";
-        throw new Error("Refresh token not found");
-    }
-
-    try {
-        const response = await axios.post<{ authToken: string }>("/api/refresh-token", { token: refreshToken });
-        const { authToken } = response.data;
-        localStorage.setItem("authToken", authToken);
-        return authToken;
-    } catch (error) {
-        console.error("Token refresh failed:", error);
-        localStorage.clear();
-        window.location.href = "/sign-in";
-        throw error;
-    }
-};
+//     try {
+//         const response = await axios.post<{ authToken: string }>("/api/refresh-token", { token: refreshToken });
+//         const { authToken } = response.data;
+//         localStorage.setItem("authToken", authToken);
+//         return authToken;
+//     } catch (error) {
+//         console.error("Token refresh failed:", error);
+//         localStorage.clear();
+//         window.location.href = "/sign-in";
+//         throw error;
+//     }
+// };
 
 export const fetchDashboardData = async () => {
-    const token = await validateAndRefreshToken();
-    const response = await axios.get(`/api/dashboard`, {
+    // const token = await validateAndRefreshToken();
+    const response = await API.get(`/api/dashboard`, {
         headers: { Authorization: `Bearer ${token}` },
     });
     return response.data;
 };
 
-const validateAndRefreshToken = async () => {
-    const token = localStorage.getItem("authToken");
-    if (token && validateToken(token)) {
-        return token;
-    } else if (token) {
-        return await refreshToken();
-    }
-    throw new Error("No valid auth token found");
-};
+// const validateAndRefreshToken = async () => {
+//     const token = localStorage.getItem("authToken");
+//     if (token && validateToken(token)) {
+//         return token;
+//     } else if (token) {
+//         return await refreshToken();
+//     }
+//     throw new Error("No valid auth token found");
+// };
 
 export default API;

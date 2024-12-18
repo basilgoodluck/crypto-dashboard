@@ -10,19 +10,15 @@ import { useAuth } from '../hooks/authProvider.js';
 import FAQs from '../components/faq.js';
 
 interface FormData {
-  name: string;
   email: string;
   password: string;
-  confirmPassword: string
 }
 
 const Signin: React.FC = () => {
   
   const [formData, setFormData] = useState<FormData>({
-    name: "",
     email: "",
     password: "",
-    confirmPassword: ""
   });
   
   const navigate = useNavigate();

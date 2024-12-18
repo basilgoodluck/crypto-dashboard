@@ -4,7 +4,7 @@ import dashboardController  from "../controllers/dashboardController.mjs";
 
 const router = Router()
 
-router.get("/", authenticate, dashboardController);
+router.get("/dashboard", authenticate, dashboardController);
 
 
 export default router

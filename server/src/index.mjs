@@ -17,7 +17,7 @@ app.use(cors());
   
 
 app.use("/api/auth", authRoute)
-app.use("/api/dashboard", dashboardRoute)
+app.use("/api", dashboardRoute)
 
 cron.schedule('0 */1 * * *', async () => {
     console.log('Fetching Ethereum price trends...');

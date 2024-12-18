@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import process from "process";
 
 const authenticate = async (req, res, next) => {
-    const authHeader = req.headers.authorization;
+    const authHeader = req.headers.Authorization;
     if (!authHeader) {
         return res.status(401).json({ message: "Access Token is not found" });
     }

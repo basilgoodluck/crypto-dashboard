@@ -54,7 +54,7 @@ export const signIn = async (req, res) => {
     const accessToken = jwt.sign(
       { userId: user._id },
       JWT_ACCESS_TOKEN,
-      { subject: "Access API", expiresIn: "10m" }
+      { subject: "Access API", expiresIn: "1h" }
     );
 
     const refreshToken = jwt.sign(
@@ -63,12 +63,9 @@ export const signIn = async (req, res) => {
       { subject: "Refresh token", expiresIn: "1d" }
     );
 
-    await refreshTokens.deleteMany({ userId: user._id });
     await refreshTokens.insertOne({ token: refreshToken, userId: user._id });
 
     return res.status(201).json({
-      username: user.name,
-      userId: user._id,
       accessToken,
       refreshToken,
     });
@@ -84,7 +81,6 @@ export const signOut = async (req, res) => {
     if (!refreshToken) {
       return res.status(403).json({ message: "Refresh token required" });
     }
-
     const db = await connectDB();
     const refreshTokens = db.collection("refresh-tokens");
 
@@ -121,10 +117,16 @@ export const refreshToken = async (req, res) => {
       const newAccessToken = jwt.sign(
         { userId },
         JWT_ACCESS_TOKEN,
-        { subject: "Access API", expiresIn: "10m" }
+        { subject: "Access API", expiresIn: "1h" }
       );
-
-      res.status(200).json({ accessToken: newAccessToken });
+      const newRefreshToken = jwt.sign(
+        { userId },
+        JWT_ACCESS_TOKEN,
+        { subject: "Refresh API", expiresIn: "1d" }
+      );
+      await refreshTokens.deleteMany({ userId });
+      await refreshTokens.insertOne({ token: newRefreshToken })
+      return res.status(200).json({ accessToken: newAccessToken, refreshToken: newRefreshToken });
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
