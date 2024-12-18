@@ -1,14 +1,16 @@
 import fetch from "node-fetch";
+import process from "process"
 
 const params = new URLSearchParams({
   vs_currency: 'usd',
   days: '30', 
 });
+const COIN_GECKO_API_URL = process.env.COIN_GECKO_API_URL
 
 export const fetchEthData = async () => {
   try {
     const response = await fetch(
-      `https://api.coingecko.com/api/v3/coins/ethereum/market_chart?${params.toString()}`,
+      `${COIN_GECKO_API_URL}?${params.toString()}`,
       {
         method: "GET",
         headers: { accept: 'application/json' },

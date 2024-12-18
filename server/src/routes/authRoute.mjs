@@ -3,9 +3,9 @@ import { refreshToken, signIn, signOut, signUp } from "../controllers/authContro
 
 const router = Router()
 
-router.post("/sign-up", signUp)
-router.post("/sign-in", signIn)
-router.post("/sign-out", signOut)
-router.post("/sign-out", refreshToken)
+router.post("/", signUp)
+router.post("/", signIn)
+router.post("/", signOut)
+router.post("/", refreshToken)
 
 export default router                                                     

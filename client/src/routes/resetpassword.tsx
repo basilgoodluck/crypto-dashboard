@@ -4,7 +4,7 @@ import { Link} from 'react-router-dom';
 interface SigninProps {
   onSignin: (token: string, userId: string) => void;
 }
-const Signin: React.FC<SigninProps> = () => {
+const ResetPassword: React.FC<SigninProps> = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
 
@@ -41,4 +41,4 @@ const Signin: React.FC<SigninProps> = () => {
   );
 };
 
-export default Signin;
+export default ResetPassword;

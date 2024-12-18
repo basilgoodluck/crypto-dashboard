@@ -1,11 +1,12 @@
 import axios from "axios";
 
-// Axios instance with dynamic baseURL
+const BackendUrl: string = import.meta.env.VITE_BACKEND_URL
+console.log(BackendUrl)
+
 const API = axios.create({
-    baseURL: "https://crypto-dashboard-pxrw.onrender.com",
+    baseURL: BackendUrl
 });
 
-// Interfaces for form data
 interface FormData {
     name: string;
     email: string;
@@ -17,7 +18,6 @@ interface FormData2 {
     password: string;
 }
 
-// API methods for authentication
 export const signUp = (userData: FormData) => 
     API.post("/api/auth/sign-up", userData);
 

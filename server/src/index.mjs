@@ -18,26 +18,26 @@ app.use(cors());
   
 
 app.use("/api/auth", authRoute)
-app.use("/api", dashboardRoute)
+app.use("/api/dashboard", dashboardRoute)
 
 cron.schedule('0 */1 * * *', async () => {
     console.log('Fetching Ethereum price trends...');
     const priceTrends = await fetchEthHourlyPriceTrends();
-    writeToFile("ethDailyPriceTrends.json", JSON.stringify(priceTrends));
+    writeToFile("./data/ethDailyPriceTrends.json", JSON.stringify(priceTrends));
     console.log('Ethereum price trends updated.');
 });
 
 cron.schedule('0 */1 * * *', async () => {
     console.log('Fetching Ethereum market caps...');
     const market_caps = await fetchEthHourlyMarketCaps();
-    writeToFile("ethDailyMarketCap.json", JSON.stringify(market_caps));
+    writeToFile("./data/ethDailyMarketCaps.json", JSON.stringify(market_caps));
     console.log('Ethereum Market cap updated.');
 });
 
 cron.schedule('0 */1 * * *', async () => {
     console.log('Fetching Ethereum total volumes...');
     const total_volumes = await fetchEthHourlyTotalVolumes();
-    writeToFile("ethDailyTotalVolumes.json", JSON.stringify(total_volumes));
+    writeToFile("./data/ethDailyTotalVolumes.json", JSON.stringify(total_volumes));
     console.log('Ethereum Total volumes updated.');
 });
 

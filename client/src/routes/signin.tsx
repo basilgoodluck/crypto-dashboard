@@ -16,7 +16,7 @@ interface FormData {
   confirmPassword: string
 }
 
-const Signup: React.FC = () => {
+const Signin: React.FC = () => {
   
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -127,4 +127,4 @@ const Signup: React.FC = () => {
   );
 };
 
-export default Signup
+export default Signin
