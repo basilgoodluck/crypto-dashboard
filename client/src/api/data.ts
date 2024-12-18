@@ -1,5 +1,4 @@
 import axios from "axios";
-// import { jwtDecode } from "jwt-decode";
 
 const API = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_URL,
@@ -37,7 +36,7 @@ const token = localStorage.getItem("authToken")
 export const fetchDashboardData = async () => {
     // const token = await validateAndRefreshToken();
     const response = await API.get(`/api/dashboard`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { authorization: `Bearer ${token}` },
     });
     return response.data;
 };

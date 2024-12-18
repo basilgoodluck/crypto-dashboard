@@ -13,7 +13,7 @@ interface EthData {
 
 export const Dashboard: React.FC = () => {
   const [loading, setLoading] = useState(true);
-  const { IsAuthenticated, username } = useAuth();
+  const { IsAuthenticated } = useAuth();
   const { setNotification } = useNotification();
   const [priceData, setPriceData] = useState<EthData[]>([]);
   const [marketCapData, setMarketCapData] = useState<EthData[]>([]);
@@ -58,7 +58,7 @@ export const Dashboard: React.FC = () => {
   return (
     <section className="background-container overflow-x-hidden bg-accent-dark" id="background-container">
       <div className="mt-12 pt-12 mx-auto py-4 md:w-4/5">
-        <h1 className="text-text-dark font-bold text-xl">Hello {username || "Guest"}</h1>
+        <h1 className="text-text-dark font-bold text-xl">Hello {"Guest"}</h1>
         <div className="grid gap-4 py-6">
           <FlexibleLineChart 
             data={priceData} 
