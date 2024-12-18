@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { jwtDecode } from "jwt-decode";
 
 const API = axios.create({
-    baseURL: "/api",
+    baseURL: import.meta.env.VITE_BACKEND_URL,
 });
 
 export const validateToken = (token: string): boolean => {
