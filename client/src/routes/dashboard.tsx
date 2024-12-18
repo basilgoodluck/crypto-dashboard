@@ -49,7 +49,7 @@ export const Dashboard: React.FC = () => {
     };
 
     fetchData();
-  }, [IsAuthenticated]);
+  }, []);
 
   if (loading) {
     return <div>Loading...</div>;
