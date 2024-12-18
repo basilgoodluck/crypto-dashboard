@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { jwtDecode } from "jwt-decode";
 
 const API = axios.create({
-    baseURL: import.meta.env.VITE_BACKEND_URL,
+    baseURL: "/api",
 });
 
 export const validateToken = (token: string): boolean => {
@@ -25,7 +25,7 @@ export const refreshToken = async (): Promise<string> => {
         if(validateToken(currentRefreshToken)){
             return currentRefreshToken
         }
-        const response: AxiosResponse = await axios.post<{ refreshToken: string }>("/api/refresh-token", { refreshToken: currentRefreshToken });
+        const response: AxiosResponse = await API.post<{ refreshToken: string }>("/api/refresh-token", { refreshToken: currentRefreshToken });
         const { accessToken, refreshToken } = response.data;
         localStorage.setItem("authToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);

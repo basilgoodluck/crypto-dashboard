@@ -1,4 +1,10 @@
 import axios from "axios";
+
+
+const API = axios.create({
+    baseURL: "/api"
+});
+
 interface FormData {
     name: string;
     email: string;
@@ -11,7 +17,7 @@ interface FormData2 {
 }
 
 export const signUp = (userData: FormData) => 
-    axios.post("/api/auth/sign-up", userData);
+    API.post("/api/auth/sign-up", userData);
 
 export const signIn = (userData: FormData2) => 
-    axios.post("/api/auth/sign-in", userData);
+    API.post("/api/auth/sign-in", userData);

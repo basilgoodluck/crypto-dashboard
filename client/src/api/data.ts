@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-    baseURL: import.meta.env.VITE_BACKEND_URL,
+    baseURL: "/api",
 });
 const token = localStorage.getItem("authToken")
 // const validateToken = (token: string): boolean => {
@@ -35,7 +35,7 @@ const token = localStorage.getItem("authToken")
 
 export const fetchDashboardData = async () => {
     // const token = await validateAndRefreshToken();
-    const response = await axios.get(`/api/dashboard`, {
+    const response = await API.get(`/api/dashboard`, {
         headers: { authorization: `Bearer ${token}` },
     });
     return response.data;
