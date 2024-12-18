@@ -35,7 +35,7 @@ const token = localStorage.getItem("authToken")
 
 export const fetchDashboardData = async () => {
     // const token = await validateAndRefreshToken();
-    const response = await API.get(`/api/dashboard`, {
+    const response = await axios.get(`/api/dashboard`, {
         headers: { authorization: `Bearer ${token}` },
     });
     return response.data;

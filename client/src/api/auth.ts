@@ -1,12 +1,4 @@
 import axios from "axios";
-
-const BackendUrl: string = import.meta.env.VITE_BACKEND_URL
-console.log(BackendUrl)
-
-const API = axios.create({
-    baseURL: BackendUrl
-});
-
 interface FormData {
     name: string;
     email: string;
@@ -19,7 +11,7 @@ interface FormData2 {
 }
 
 export const signUp = (userData: FormData) => 
-    API.post("/api/auth/sign-up", userData);
+    axios.post("/api/auth/sign-up", userData);
 
 export const signIn = (userData: FormData2) => 
-    API.post("/api/auth/sign-in", userData);
+    axios.post("/api/auth/sign-in", userData);

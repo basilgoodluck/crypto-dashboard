@@ -25,7 +25,7 @@ export const refreshToken = async (): Promise<string> => {
         if(validateToken(currentRefreshToken)){
             return currentRefreshToken
         }
-        const response: AxiosResponse = await API.post<{ refreshToken: string }>("/api/refresh-token", { refreshToken: currentRefreshToken });
+        const response: AxiosResponse = await axios.post<{ refreshToken: string }>("/api/refresh-token", { refreshToken: currentRefreshToken });
         const { accessToken, refreshToken } = response.data;
         localStorage.setItem("authToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
