@@ -7,6 +7,7 @@ import FlexibleAreaChart from "../components/areachart";
 import FlexibleLineChart from "../components/linechart";
 import useMediaQuery from "../hooks/useMediaQuery";
 import Barchart from "../components/barchart";
+import ChartBox from "../components/chartBox";
 import Whaleslist from "../components/whaleslist";
 
 interface EthData {
@@ -37,6 +38,7 @@ const gridAreaSmall = `
   "g"
   "h"
   "i"
+  "j"
 `
 
 export const Dashboard: React.FC = () => {
@@ -89,70 +91,82 @@ export const Dashboard: React.FC = () => {
     <section className="background-container bg-accent-dark w-full" id="background-container">
       <div className="mt-12 pt-12 mx-auto py-4 md:w-4/5 w-11/12">
         <h1 className="text-text-dark text-2xl">Hello {"Guest"}</h1>
-        <div className="grid gap-4 py-6" style={{gridTemplateAreas: aboveMedia ? gridAreaLarge : gridAreaSmall, gridTemplateColumns: aboveMedia ? "repeat(3, minmax(370px, 1fr))": "", gridTemplateRows: "repeat(10, minmax(60px, 1fr))"}}>
-          <FlexibleAreaChart 
-            data={marketCapData} 
-            dataKey="price" 
-            color="#1e40af" 
-            gridArea="a" 
-          />
-          <FlexibleAreaChart 
-            data={volumeData} 
-            dataKey="price" 
-            color="#fff" 
-            gridArea="b" 
-          />
-          <Barchart 
-            data={priceData} 
-            dataKey="price" 
-            color="#ff4" 
-            gridArea="c"
-          />
-          <FlexibleAreaChart 
-            data={marketCapData} 
-            dataKey="price" 
-            color="#1e40af" 
-            gridArea="d" 
-          />
-          <FlexibleAreaChart 
-            data={volumeData} 
-            dataKey="price" 
-            color="#fff" 
-            gridArea="e" 
-          />
-          <FlexibleLineChart 
-            data={priceData} 
-            dataKey="price" 
-            color="#000000" 
-            gridArea="f" 
-          />
-          <FlexibleAreaChart 
-            data={marketCapData} 
-            dataKey="price" 
-            color="#1e40af" 
-            gridArea="g" 
-          />
-          <Whaleslist 
-            gridArea="h"
-          />
-          {/* <FlexibleAreaChart 
-            data={volumeData} 
-            dataKey="price" 
-            color="#fff" 
-            gridArea="h" 
-          /> */}
-          <FlexibleLineChart 
-            data={priceData} 
-            dataKey="price" 
-            color="#000000" 
-            gridArea="i" 
-          />
-          <FlexibleLineChart 
-            data={priceData} 
-            dataKey="price" 
-            color="#000000" 
-            gridArea="j" 
-          />
+        <div 
+          className="grid gap-4 py-6 h-full w-full" 
+          style={{
+            gridTemplateAreas: aboveMedia ? gridAreaLarge : gridAreaSmall, 
+            gridTemplateColumns: aboveMedia ? "repeat(3, minmax(370px, 1fr))" : "1fr", 
+            gridTemplateRows: "repeat(10, minmax(60px, 1fr))"
+          }}
+        >
+
+          <ChartBox gridArea="a">
+            <FlexibleAreaChart 
+              data={marketCapData} 
+              dataKey="price" 
+              color="#0d1b2a"
+            />
+          </ChartBox>
+          <ChartBox gridArea="b">
+            <Barchart 
+              data={priceData} 
+              dataKey="price" 
+              color="#0d1b2a"
+            />
+          </ChartBox>
+          <ChartBox gridArea="c">
+            <FlexibleLineChart 
+              data={volumeData} 
+              dataKey="price" 
+              color="#0d1b2a'"
+            />
+          </ChartBox>
+          <ChartBox gridArea="d">
+            <Barchart 
+              data={priceData} 
+              dataKey="price" 
+              color="#0d1b2a"
+            />
+          </ChartBox>
+          <ChartBox gridArea="e">
+            <Whaleslist   
+            />
+          </ChartBox>
+          <ChartBox gridArea="f">
+            <FlexibleAreaChart 
+              data={marketCapData} 
+              dataKey="price" 
+              color="#0d1b2a"
+            />
+          </ChartBox>
+          <ChartBox gridArea="g">
+            <FlexibleAreaChart 
+              data={marketCapData} 
+              dataKey="price" 
+              color="#0d1b2a"
+            />
+          </ChartBox>
+          <ChartBox gridArea="h">
+            <FlexibleAreaChart 
+              data={marketCapData} 
+              dataKey="price" 
+              color="#0d1b2a"
+            />
+          </ChartBox>
+          <ChartBox gridArea="i">
+            <FlexibleAreaChart 
+              data={marketCapData} 
+              dataKey="price" 
+              color="#0d1b2a"
+            />
+          </ChartBox>
+          <ChartBox gridArea="j">
+            <FlexibleAreaChart 
+              data={marketCapData} 
+              dataKey="price" 
+              color="#0d1b2a"
+            />
+          </ChartBox>
         </div>
       </div>
     </section>

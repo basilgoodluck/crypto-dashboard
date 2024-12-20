@@ -6,6 +6,7 @@ export default {
     "./src/components/footer.tsx",
     "./src/components/faq.tsx",
     "./src/components/protectedNavbar.tsx",
+    "./src/components/chartBox.tsx",
     "./src/App.tsx",
     "./src/components/linechart.tsx",
     "./src/components/areachart.tsx",
