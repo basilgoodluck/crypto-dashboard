@@ -9,6 +9,8 @@ export default {
     "./src/App.tsx",
     "./src/components/linechart.tsx",
     "./src/components/areachart.tsx",
+    "./src/components/barchart.tsx",
+    "./src/components/whaleslist.tsx",
     "./src/routes/home.tsx",
     "./src/routes/example.tsx",
     "./src/routes/dashboard.tsx",

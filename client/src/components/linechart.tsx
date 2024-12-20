@@ -63,7 +63,7 @@ const FlexibleLineChart: React.FC<{
     }
     
   return (
-    <div className={`p-4 flex justify-center items-center h-[400px] w-full shadow-xl shadow-black bg-blak rounded-lg`} style={{gridArea}}>
+    <div className={`p-4 flex justify-center items-center min:h-[100px] w-full shadow-xl shadow-black bg- rounded-lg`} style={{gridArea}}>
       <div className="w-full h-full">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
@@ -77,10 +77,11 @@ const FlexibleLineChart: React.FC<{
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
+              className='text-gray-100 text-[10px] bg-gray-100'
               dataKey="timestamp"
-              tickFormatter={(tick) => new Date(tick).toLocaleDateString()}
+              tickFormatter={(tick) => new Date(tick).toLocaleDateString(undefined, { day: '2-digit', month: 'short' })}
             />
-            <YAxis />
+            <YAxis className='text-gray-100 text-[10px] bg-gray-100' />
             <Tooltip />
             <Line type="monotone" dataKey="price" stroke={color} activeDot={{ r: 8 }} />
           </LineChart>
