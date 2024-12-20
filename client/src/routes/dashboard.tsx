@@ -28,15 +28,15 @@ const gridAreaLarge = `
 `
 
 const gridAreaSmall = `
-  a
-  b
-  c
-  d
-  e
-  f
-  g
-  h
-  i
+  "a"
+  "b"
+  "c"
+  "d"
+  "e"
+  "f"
+  "g"
+  "h"
+  "i"
 `
 
 export const Dashboard: React.FC = () => {
@@ -86,10 +86,10 @@ export const Dashboard: React.FC = () => {
   }
 
   return (
-    <section className="background-container overflow-x-hidden bg-accent-dark" id="background-container">
-      <div className="mt-12 pt-12 mx-auto py-4 md:w-4/5">
-        <h1 className="text-text-dark text-2xl">Helo {"Guest"}</h1>
-        <div className="grid gap-4 py-6" style={{gridTemplateAreas: aboveMedia ? gridAreaLarge : gridAreaSmall, gridTemplateColumns: "repeat(3, minmax(370px, 1fr)) ", gridTemplateRows: "repeat(10, minmax(60px, 1fr))"}}>
+    <section className="background-container bg-accent-dark w-full" id="background-container">
+      <div className="mt-12 pt-12 mx-auto py-4 md:w-4/5 w-11/12">
+        <h1 className="text-text-dark text-2xl">Hello {"Guest"}</h1>
+        <div className="grid gap-4 py-6" style={{gridTemplateAreas: aboveMedia ? gridAreaLarge : gridAreaSmall, gridTemplateColumns: aboveMedia ? "repeat(3, minmax(370px, 1fr))": "", gridTemplateRows: "repeat(10, minmax(60px, 1fr))"}}>
           <FlexibleAreaChart 
             data={marketCapData} 
             dataKey="price" 
