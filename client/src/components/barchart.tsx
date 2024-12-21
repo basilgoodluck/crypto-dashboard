@@ -75,7 +75,6 @@ const Barchart: React.FC<{
         <Tooltip />
         <Legend />
         <Bar dataKey={"price"} fill={color} activeBar={<Rectangle fill={color} stroke={color} />} />
-        {/* <Bar dataKey="uv" fill={color} activeBar={<Rectangle fill={color} stroke={color} />} /> */}
       </BarChart>
     </ResponsiveContainer>
   );

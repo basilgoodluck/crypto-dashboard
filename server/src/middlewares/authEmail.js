@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import { connectDB } from "../config/mongodb.mjs";
+import process from "process"
 
 const authenticateEmail = async (req, res, next) => {
     const authHeader = req.headers.authorization;
@@ -24,7 +25,7 @@ const authenticateEmail = async (req, res, next) => {
         }
         next();
     } catch (error) {
-        return res.status(403).json({ message: "Invalid or expired token" });
+        return res.status(403).json({ message: error.message || "Invalid or expired token" });
     }
 };
 
