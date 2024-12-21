@@ -46,7 +46,7 @@ function App() {
                 }
               />
               <Route
-                path="/account-settings"
+                path="/account/settings"
                 element={
                   <ProtectedRoute>
                     <Account />

@@ -1,10 +1,9 @@
 import React, { useMemo } from 'react';
 import { BarChart, Bar, ResponsiveContainer, XAxis, YAxis, Legend, Tooltip, Rectangle } from 'recharts';
 
-// Define the type for the data
 interface ChartData {
     timestamp: string;
-    price: string;  // or number, depending on your actual data
+    price: string; 
   }
 
 const Barchart: React.FC<{
@@ -17,32 +16,38 @@ const Barchart: React.FC<{
     color, 
   }) =>  {
     const transformedData = useMemo(() => {
-        if (!data || data.length === 0) {
+      if (!data || data.length === 0) {
         console.warn('No data provided');
         return [];
-        }
+      }
     
-        return data.map((item, index) => {
+      return data.map((item, index) => {
         try {
-            const numericValue = parseFloat(item.price);
-            
-            if (isNaN(numericValue)) {
+          const numericValue = parseFloat(item.price);
+    
+          if (isNaN(numericValue)) {
             console.warn(`Invalid data at index ${index}:`, item);
             return null;
-            }
+          }
     
-            const safeValue = Math.max(0, numericValue);
+          const safeValue = Math.max(0, numericValue);
     
-            return {
+          return {
             timestamp: item.timestamp,
-            [dataKey]: safeValue
-            };
+            [dataKey]: safeValue, 
+            formattedValue: safeValue >= 1_000_000
+              ? `${(safeValue / 1_000_000).toFixed(1)}m`
+              : safeValue >= 1_000
+              ? `${(safeValue / 1_000).toFixed(1)}k`
+              : safeValue.toString(),
+          };
         } catch (error) {
-            console.error(`Error processing data at index ${index}:`, error);
-            return null;
+          console.error(`Error processing data at index ${index}:`, error);
+          return null;
         }
-        }).filter(Boolean); 
+      }).filter(Boolean);
     }, [data, dataKey]);
+    
     
     if (transformedData.length === 0) {
         return (
@@ -65,8 +70,8 @@ const Barchart: React.FC<{
         }}
       >
         <Bar dataKey="timestamp" fill={color} />
-        <XAxis dataKey="price" />
-        <YAxis />
+        <XAxis dataKey="price" className='text-gray-100 text-[10px] bg-gray-100' />
+        <YAxis className='text-gray-100 text-[10px] bg-gray-100' />
         <Tooltip />
         <Legend />
         <Bar dataKey={"price"} fill={color} activeBar={<Rectangle fill={color} stroke={color} />} />

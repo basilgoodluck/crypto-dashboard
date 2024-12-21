@@ -1,11 +1,15 @@
 import React, { useState } from "react";
+import defaultProfile from "../assets/default-profile.png";
+import { FaPencil } from "react-icons/fa6";
+import { useAuth } from "../hooks/authProvider";
 
 const Account: React.FC = () => {
+  const { SignOut } = useAuth()
   const [walletAddress, setWalletAddress] = useState<string | null>(
-    "0x1234...abcd" // Replace with actual logic to fetch wallet
+    "0x1234...abcd"
   );
   const [profilePic, setProfilePic] = useState<string>(
-    "https://via.placeholder.com/150" // Placeholder profile picture
+    defaultProfile 
   );
   const [name, setName] = useState<string>("John Doe");
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -16,11 +20,6 @@ const Account: React.FC = () => {
     if (newWalletAddress) {
       setWalletAddress(newWalletAddress);
     }
-  };
-
-  const handleLogout = () => {
-    console.log("Logged out"); // Replace with actual logout logic
-    alert("You have been logged out.");
   };
 
   const handleProfilePicChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,10 +44,9 @@ const Account: React.FC = () => {
   };
 
   return (
-    <div className="p-6 max-w-lg mx-auto bg-white rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold mb-4">Account Settings</h1>
+    <div className="p-6 max-w-lg   mt-16">
+      <h1 className="text-xl font-bold mb-4">Account Settings</h1>
 
-      {/* Profile Section */}
       <div className="mb-6">
         <div className="flex items-center gap-4">
           <img
@@ -57,7 +55,7 @@ const Account: React.FC = () => {
             className="w-16 h-16 rounded-full border"
           />
           <div>
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-sm font-medium font-semi mb-2">
               Change Profile Picture
             </label>
             <input
@@ -69,25 +67,31 @@ const Account: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {/* Name and Wallet Address */}
       <div className="mb-6">
-        <label className="block text-gray-700 text-sm font-bold mb-2">
+        <label className="block text-gray-700 text-sm font-medium mb-2">
           Name
         </label>
         {isEditing ? (
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full p-2 border rounded"
-          />
+          <div className="flex flex-col gap-2">
+            <form>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full p-2 border rounded outline-none"
+              />
+            </form>
+            <div className="flex items-center justify-between">
+              <button className="py-2 underline" onClick={() => setIsEditing(!isEditing)}>cancel</button>
+              <button className="p-2 rounded-lg undrline bg-accent-dark text-white " type="submit">submit</button>
+            </div>
+          </div>          
         ) : (
-          <p>{name}</p>
+          <p>{name} <button onClick={() => setIsEditing(!isEditing)}><FaPencil className="inline-block" /></button></p>
         )}
       </div>
 
-      <div className="mb-6">
+      <div className="mb-6 flex flex-col gap-2">
         <h2 className="text-xl font-semibold">Wallet Address</h2>
         {walletAddress ? (
           <p className="mt-2 p-2 bg-gray-100 rounded text-gray-700">
@@ -97,15 +101,14 @@ const Account: React.FC = () => {
           <p className="mt-2 text-gray-500">No wallet address linked.</p>
         )}
         <button
-          className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          className="p-2 undrline bg-accent-dark text-white rounded-lg hover:bg-blue-600"
           onClick={handleLinkWallet}
         >
           {walletAddress ? "Change Wallet" : "Link Wallet"}
         </button>
       </div>
 
-      {/* Reset Password */}
-      <div className="mb-6">
+      <div className="mb-6 flex flex-col gap-2">
         <h2 className="text-xl font-semibold">Reset Password</h2>
         <button
           className="mt-2 px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
@@ -115,29 +118,17 @@ const Account: React.FC = () => {
         </button>
       </div>
 
-      {/* Update Details */}
-      <div className="mb-6">
-        <button
-          className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-          onClick={() => setIsEditing(!isEditing)}
-        >
-          {isEditing ? "Save Changes" : "Edit Details"}
-        </button>
-      </div>
-
-      {/* Logout */}
       <div className="mb-6">
         <button
           className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-          onClick={handleLogout}
+          onClick={SignOut}
         >
           Log Out
         </button>
       </div>
 
-      {/* Delete Account */}
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold">Delete Account</h2>
+      <div className="mb-6 border border-secondary-dark p-2">
+        <h2 className="text-xl font-semibold text-secondary-dark">Delete Account</h2>
         <textarea
           placeholder="Reason for deleting your account (optional)"
           value={deleteReason}

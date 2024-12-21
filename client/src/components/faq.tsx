@@ -45,7 +45,7 @@ const FAQs = () => {
 
   return (
     <div className="bg-gray-100">
-      <div className="w-11/12 md:w-4/5 mx-auto mt-12 py-4">
+      <div className="w-11/12 md:w-4/5 mx-auto py-24">
         <h1 className="text-xl font-bold text-center mb-4">FAQs</h1>
         <div className="space-y-4 md:w-4/5 mx-auto">
           {faqData.map((faq, index) => (

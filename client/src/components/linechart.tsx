@@ -24,32 +24,39 @@ const FlexibleLineChart: React.FC<{
   color = '#8884d8', 
 }) =>  {
   const transformedData = useMemo(() => {
-      if (!data || data.length === 0) {
-        console.warn('No data provided');
-        return [];
-      }
+    if (!data || data.length === 0) {
+      console.warn('No data provided');
+      return [];
+    }
   
-      return data.map((item, index) => {
-        try {
-          const numericValue = parseFloat(item.price);
-          
-          if (isNaN(numericValue)) {
-            console.warn(`Invalid data at index ${index}:`, item);
-            return null;
-          }
+    return data.map((item, index) => {
+      try {
+        const numericValue = parseFloat(item.price);
   
-          const safeValue = Math.max(0, numericValue);
-  
-          return {
-            timestamp: item.timestamp,
-            [dataKey]: safeValue
-          };
-        } catch (error) {
-          console.error(`Error processing data at index ${index}:`, error);
+        if (isNaN(numericValue)) {
+          console.warn(`Invalid data at index ${index}:`, item);
           return null;
         }
-      }).filter(Boolean); 
-    }, [data, dataKey]);
+  
+        const safeValue = Math.max(0, numericValue);
+  
+        return {
+          timestamp: item.timestamp,
+          [dataKey]: safeValue, 
+          formattedValue: safeValue >= 1_000_000
+            ? `${(safeValue / 1_000_000).toFixed(1)}m`
+            : safeValue >= 1_000
+            ? `${(safeValue / 1_000).toFixed(1)}k`
+            : safeValue.toString(),
+        };
+      } catch (error) {
+        console.error(`Error processing data at index ${index}:`, error);
+        return null;
+      }
+    }).filter(Boolean);
+  }, [data, dataKey]);
+  
+  
   
     if (transformedData.length === 0) {
       return (

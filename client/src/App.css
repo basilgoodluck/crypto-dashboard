@@ -94,7 +94,7 @@ body{
   
   .circle {
     stroke-dasharray: var(--percentage, 0%);
-    transition: stroke-dasharray 0.5s ease-in-out, stroke-width 0.5s ease-in-out;  /* Added transition for stroke-dasharray and stroke-width */
+    transition: stroke-dasharray 0.5s ease-in-out, stroke-width 0.5s ease-in-out;  
   }
   
   .percentage {
@@ -105,4 +105,13 @@ body{
     font-size: 18px;
     color: #000;
   }
+  .slide-up-hidden {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.6s ease-out;
+  }
   
+  .slide-up-visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }

@@ -9,6 +9,8 @@ import useMediaQuery from "../hooks/useMediaQuery";
 import Barchart from "../components/barchart";
 import ChartBox from "../components/chartBox";
 import Whaleslist from "../components/whaleslist";
+import LivePrice from "../components/ethLivePrice";
+import SlideBoxUp from "../components/slideboxup";
 
 interface EthData {
   timestamp: string;
@@ -98,27 +100,24 @@ export const Dashboard: React.FC = () => {
             gridTemplateColumns: aboveMedia ? "repeat(3, minmax(370px, 1fr))" : "1fr", 
             gridTemplateRows: "repeat(10, minmax(60px, 1fr))"
           }}
-        >
-
-          <ChartBox gridArea="a">
-            <FlexibleAreaChart 
-              data={marketCapData} 
-              dataKey="price" 
-              color="#0d1b2a"
-            />
-          </ChartBox>
+        >          
+          <SlideBoxUp className="">
+            <ChartBox gridArea="a">
+              <LivePrice />
+            </ChartBox>
+          </SlideBoxUp>
           <ChartBox gridArea="b">
-            <Barchart 
-              data={priceData} 
+            <FlexibleLineChart 
+              data={volumeData} 
               dataKey="price" 
               color="#0d1b2a"
             />
           </ChartBox>
           <ChartBox gridArea="c">
-            <FlexibleLineChart 
-              data={volumeData} 
+            <FlexibleAreaChart 
+              data={marketCapData} 
               dataKey="price" 
-              color="#0d1b2a'"
+              color="#0d1b2a"
             />
           </ChartBox>
           <ChartBox gridArea="d">
@@ -133,8 +132,8 @@ export const Dashboard: React.FC = () => {
             />
           </ChartBox>
           <ChartBox gridArea="f">
-            <FlexibleAreaChart 
-              data={marketCapData} 
+            <FlexibleLineChart 
+              data={volumeData} 
               dataKey="price" 
               color="#0d1b2a"
             />
@@ -143,7 +142,7 @@ export const Dashboard: React.FC = () => {
             <FlexibleAreaChart 
               data={marketCapData} 
               dataKey="price" 
-              color="#0d1b2a"
+              color="#9b1c1c"
             />
           </ChartBox>
           <ChartBox gridArea="h">
@@ -157,14 +156,14 @@ export const Dashboard: React.FC = () => {
             <FlexibleAreaChart 
               data={marketCapData} 
               dataKey="price" 
-              color="#0d1b2a"
+              color="#e11b2a"
             />
           </ChartBox>
           <ChartBox gridArea="j">
             <FlexibleAreaChart 
               data={marketCapData} 
               dataKey="price" 
-              color="#0d1b2a"
+              color="#067b2a"
             />
           </ChartBox>
         </div>
