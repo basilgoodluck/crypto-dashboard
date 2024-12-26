@@ -21,7 +21,7 @@ const refreshToken = async (): Promise<string> => {
     }
 
     try {
-        const response = await axios.post<{ authToken: string }>("/api/refresh-token", { token: refreshToken });
+        const response = await API.post<{ authToken: string }>("/api/refresh-token", { token: refreshToken });
         const { authToken } = response.data;
         localStorage.setItem("authToken", authToken);
         return authToken;
